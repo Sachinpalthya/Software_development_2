@@ -9,7 +9,7 @@
 - SNEHA PARUCHURI - (A00073987)  
 - KESAV ANIRUDH SAI SIDDA - (A00074820)
 - SARASWATHI VELUPULA - (A00052362)
-- SAMPATH PERUMULA -(
+- SAMPATH PERUMULA MADHUSUDANA - (A00086558)
 
 ---
 
@@ -43,17 +43,32 @@ The project idea will be finalized after requirement analysis and team discussio
 ---
 
 ## 📋 Task Management
-A task board is used to:
-- Organize and prioritize project tasks  
-- Assign responsibilities to team members  
-- Track progress across sprints  
-- Ensure timely completion of milestones  
+Task management is handled using **GitHub Projects**.
+
+🔗 **Project Task Board:**  
+https://github.com/users/Sachinpalthya/projects/6
+
+The task board is used to:
+- Create and prioritize tasks  
+- Assign tasks to team members  
+- Track progress (To Do, In Progress, Review, Done)  
+- Monitor sprint completion and workload distribution  
 
 ---
 
-## 💻 Technologies
-(To be updated once the project requirements are finalized)
+## 💻 Technologies Used
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **Docker** (for containerization)
+
+### Database
+- **MySQL**
+
+### Frontend
+- **HTML**
+- **CSS**
+- **JavaScript**
 
 ---
-
-## 📂 Repository Structure
