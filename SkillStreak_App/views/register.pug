@@ -9,7 +9,7 @@ block content
         | SkillStreak
         
       h1(style="font-size: 48px; margin-bottom: 24px;") Start your learning #[br] #[span(style="color: var(--primary);") Journey.]
-      p(style="font-size: 18px; color: var(--text-muted); max-width: 400px; margin-bottom: 40px;") Join over 50,000+ learners building daily habits, earning exclusive badges, and climbing the global leaderboard.
+      p(style="font-size: 18px; color: var(--text-muted); max-width: 400px; margin-bottom: 40px;") Join us our learners building daily habits, earning exclusive badges, and climbing the global leaderboard.
       
       .rewards-card(style="background: white; border-radius: 20px; padding: 32px; box-shadow: var(--shadow-lg); max-width: 450px;")
         h3(style="font-size: 18px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;")
@@ -35,19 +35,19 @@ block content
           .learner(style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--primary); border-radius: 8px; background: #fffcfb;")
             .learner-info(style="display: flex; align-items: center; gap: 12px;")
               .avatar(style="width: 32px; height: 32px; background: #ffd8cc; border-radius: 50%;")
-              span(style="font-weight: 600; font-size: 14px;") Alex Rivera
+              span(style="font-weight: 600; font-size: 14px;") rakshitha
             span(style="color: var(--primary); font-weight: bold; font-size: 14px;") 2,450 XP
           .learner(style="display: flex; justify-content: space-between; align-items: center; padding: 12px; border: 1px solid var(--gray-100); border-radius: 8px;")
             .learner-info(style="display: flex; align-items: center; gap: 12px;")
               .avatar(style="width: 32px; height: 32px; background: #e2e8f0; border-radius: 50%;")
-              span(style="font-weight: 500; font-size: 14px;") Sarah Chen
+              span(style="font-weight: 500; font-size: 14px;") deekshitha 
             span(style="color: var(--text-muted); font-size: 14px;") 2,100 XP
 
     // Right side: Form
     .auth-form-wrapper(style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px;")
       .auth-card(style="background: white; border-radius: 24px; padding: 48px; width: 100%; max-width: 500px; box-shadow: var(--shadow-lg);")
         h2(style="font-size: 28px; margin-bottom: 8px;") Create Account
-        p(style="color: var(--text-muted); margin-bottom: 32px;") Join the streak and start mastering new skills today.
+        p(style="color: var(--text-muted); margin-bottom: 32px;") Join us to make your streak and start mastering new skills today.
         
         form(action="/register", method="POST")
           .form-group(style="margin-bottom: 24px;")
@@ -64,25 +64,25 @@ block content
             label.form-label Full Name
             .input-with-icon(style="position: relative;")
               i.far.fa-user(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
-              input.form-input(type="text", name="full_name", placeholder="John Doe", style="padding-left: 44px;", required)
+              input.form-input(type="text", name="full_name", placeholder="your name please", style="padding-left: 44px;", required)
               
           .form-group
             label.form-label Email Address
             .input-with-icon(style="position: relative;")
               i.far.fa-envelope(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
-              input.form-input(type="email", name="email", placeholder="name@company.com", style="padding-left: 44px;", required)
+              input.form-input(type="email", name="email", placeholder="youremail@gmail.com", style="padding-left: 44px;", required)
               
           .form-row(style="display: flex; gap: 16px; margin-bottom: 24px;")
             .form-group(style="flex: 1; margin-bottom: 0;")
               label.form-label Password
               .input-with-icon(style="position: relative;")
                 i.fas.fa-lock(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
-                input.form-input(type="password", name="password", placeholder="••••••••", style="padding-left: 44px;", required)
+                input.form-input(type="password", name="password", placeholder="your password please", style="padding-left: 44px;", required)
             .form-group(style="flex: 1; margin-bottom: 0;")
               label.form-label Confirm
               .input-with-icon(style="position: relative;")
                 i.fas.fa-shield-alt(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
-                input.form-input(type="password", name="password_confirm", placeholder="••••••••", style="padding-left: 44px;", required)
+                input.form-input(type="password", name="password_confirm", placeholder="your password please", style="padding-left: 44px;", required)
                 
           .form-group(style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 24px;")
             input(type="checkbox", id="terms", required, style="margin-top: 4px;")
