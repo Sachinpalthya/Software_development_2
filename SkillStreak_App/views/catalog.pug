@@ -39,112 +39,21 @@ block content
         a(href="#", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all →
         
       .course-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
-        // Course 1
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Intermediate
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Advanced React Patterns
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Sarah Jenkins
-            .progress-area(style="margin-top: 16px;")
-              .progress-header(style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; font-weight: 600;")
-                span(style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;") Progress
-                span 65%
-              .progress-bar(style="height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden;")
-                .progress-fill(style="height: 100%; background: var(--primary); width: 65%;")
-
-        // Course 2
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--text-dark); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Basic
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Strategic Communication
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Michael Chen
-            .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
-              span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
-              .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
-                i.fas.fa-play
-
-        // Course 3
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: #d1fae5; position: relative; display: flex; align-items: center; justify-content: center;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Advanced
-            i.fas.fa-chart-bar(style="font-size: 48px; color: #10b981;")
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Deep Learning with PyTorch
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Dr. Elena Rodriguez
-            .progress-area(style="margin-top: 16px;")
-              .progress-header(style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; font-weight: 600;")
-                span(style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;") Progress
-                span 12%
-              .progress-bar(style="height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden;")
-                .progress-fill(style="height: 100%; background: var(--primary); width: 12%;")
-
-        // Course 4
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: #e0f2fe; position: relative; display: flex; align-items: center; justify-content: center;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Intermediate
-            i.fas.fa-bullseye(style="font-size: 48px; color: #0284c7;")
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Growth Marketing 101
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Alex Rivera
-            .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
-              span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
-              .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
-                i.fas.fa-play
-
-        // Course 5
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--text-dark); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Basic
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Modern JavaScript
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Kyle Simpson
-            .progress-area(style="margin-top: 16px;")
-              .progress-header(style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; font-weight: 600;")
-                span(style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;") Progress
-                span 95%
-              .progress-bar(style="height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden;")
-                .progress-fill(style="height: 100%; background: var(--primary); width: 95%;")
-
-        // Course 6
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Intermediate
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Agile Project Management
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Jessica Wong
-            .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
-              span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
-              .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
-                i.fas.fa-play
-
-        // Course 7
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: #fef08a; position: relative; display: flex; align-items: center; justify-content: center;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--text-dark); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Basic
-            i.fas.fa-layer-group(style="font-size: 48px; color: #ca8a04;")
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") UI Design Fundamentals
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Gary Simon
-            .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
-              span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
-              .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
-                i.fas.fa-play
-
-        // Course 8
-        .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
-          .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
-            span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") Advanced
-          .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
-            h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") Emotional Intelligence at Work
-            p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") Dr. Robert Vance
-            .progress-area(style="margin-top: 16px;")
-              .progress-header(style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px; font-weight: 600;")
-                span(style="color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;") Progress
-                span 40%
-              .progress-bar(style="height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden;")
-                .progress-fill(style="height: 100%; background: var(--primary); width: 40%;")
+        if courses && courses.length > 0
+          each course in courses
+            a(href=`/course/${course.course_id}`, style="text-decoration: none; color: inherit;")
+              .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; height: 100%; transition: transform 0.2s; &:hover { transform: translateY(-4px); }")
+                .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
+                  span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") #{course.course_level}
+                .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
+                  h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") #{course.course_title}
+                  p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") #{course.course_description}
+                  .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
+                    span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
+                    .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
+                      i.fas.fa-play
+        else
+          p(style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 18px;") No courses available at the moment.
 
     .load-more(style="text-align: center; margin-top: 40px;")
       button.btn.btn-outline(style="border-radius: 30px; padding: 12px 32px; font-weight: 600;") Load More Courses

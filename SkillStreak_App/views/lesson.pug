@@ -6,12 +6,12 @@ block content
     .content-area(style="flex: 1; padding: 0 40px 40px 40px; border-right: 1px solid var(--gray-200); max-width: 1000px;")
       // Breadcrumbs
       .breadcrumbs(style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 24px;")
-        a(href="#") Web Development
+        a(href="/catalog") Course Catalog
         i.fas.fa-chevron-right(style="font-size: 10px;")
-        a(href="#") Advanced React
+        a(href=`/course/${lesson.course_id}`) #{lesson.course_title}
         i.fas.fa-chevron-right(style="font-size: 10px;")
-        span(style="color: var(--text-dark); font-weight: 600;") Lesson 4: Building Custom Hooks
-        
+        span(style="color: var(--text-dark); font-weight: 600;") Lesson #{lesson.lesson_order}: #{lesson.lesson_title}
+
       // Video Player
       .video-container(style="background: black; border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 16/9; margin-bottom: 32px; box-shadow: var(--shadow-md);")
         img(src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80", style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;")
@@ -33,8 +33,8 @@ block content
       // Lesson Info
       .lesson-header(style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;")
         div
-          h1(style="font-size: 32px; margin-bottom: 12px;") 4. Building Custom Hooks
-          p(style="color: var(--text-muted); font-size: 16px; max-width: 600px; line-height: 1.6;") Learn how to extract complex component logic into reusable functions. We'll build a `useLocalStorage` and `useWindowSize` hook from scratch to understand the patterns.
+          h1(style="font-size: 32px; margin-bottom: 12px;") #{lesson.lesson_order}. #{lesson.lesson_title}
+          p(style="color: var(--text-muted); font-size: 16px; max-width: 600px; line-height: 1.6;") #{lesson.lesson_content}
         button.btn.btn-primary(style="display: flex; align-items: center; gap: 8px; padding: 12px 24px; font-size: 14px; border-radius: 8px;")
           i.fas.fa-check-circle
           | Mark as Complete
@@ -78,43 +78,35 @@ block content
 
       // Discussion Section
       .discussion-section
-        h3(style="font-size: 20px; margin-bottom: 24px;") Discussion (24)
+        h3(style="font-size: 20px; margin-bottom: 24px;") Discussion (#{comments ? comments.length : 0})
         
         .add-comment(style="display: flex; gap: 16px; margin-bottom: 40px;")
           .avatar(style="width: 40px; height: 40px; border-radius: 50%; background: #fed7aa; flex-shrink: 0; overflow: hidden;")
-            img(src="https://randomuser.me/api/portraits/women/65.jpg", style="width: 100%;")
+            img(src="https://randomuser.me/api/portraits/lego/1.jpg", style="width: 100%;")
           div(style="flex: 1;")
             textarea.form-input(placeholder="Ask a question or share your thoughts...", style="min-height: 100px; resize: none; margin-bottom: 12px; background: var(--gray-100); border: none;")
             div(style="text-align: right;")
               button.btn.btn-primary(style="background: #e2e8f0; color: var(--text-dark); font-weight: 600; padding: 10px 24px;") Post Comment
               
         .comment-list(style="display: flex; flex-direction: column; gap: 32px;")
-          // Comment Thread
-          .comment-thread
-            .comment(style="display: flex; gap: 16px;")
-              .avatar(style="width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; flex-shrink: 0; overflow: hidden;")
-                img(src="https://randomuser.me/api/portraits/women/33.jpg", style="width: 100%;")
-              div
-                .comment-header(style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;")
-                  span(style="font-weight: 600; font-size: 14px;") Sarah Jenkins
-                  span(style="font-size: 12px; color: var(--text-muted);") 2 hours ago
-                p(style="font-size: 14px; color: #374151; margin-bottom: 12px;") Quick question: Can we call a custom hook inside a standard JavaScript function? Or only inside functional components?
-                .comment-actions(style="display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); font-weight: 600;")
-                  span(style="cursor: pointer;") Reply
-                  span(style="cursor: pointer; display: flex; align-items: center; gap: 6px;") 
-                    i.far.fa-thumbs-up
-                    | 4
-                
-            // Reply
-            .reply(style="display: flex; gap: 16px; margin-left: 56px; margin-top: 24px;")
-              .avatar(style="width: 40px; height: 40px; border-radius: 50%; background: #1e293b; flex-shrink: 0; overflow: hidden;")
-                img(src="https://randomuser.me/api/portraits/men/41.jpg", style="width: 100%;")
-              div
-                .comment-header(style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;")
-                  span(style="font-weight: 600; font-size: 14px;") David Miller
-                  span.badge(style="background: #ffedd5; color: #c2410c; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: bold;") INSTRUCTOR
-                  span(style="font-size: 12px; color: var(--text-muted);") 1 hour ago
-                p(style="font-size: 14px; color: #374151; margin-bottom: 12px;") Great question, Sarah! Hooks must only be called at the top level of React functions (Components or other Custom Hooks). They won't work in plain JS functions.
+          if comments && comments.length > 0
+            each comment in comments
+              .comment-thread
+                .comment(style="display: flex; gap: 16px;")
+                  .avatar(style="width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; flex-shrink: 0; overflow: hidden;")
+                    img(src=`https://randomuser.me/api/portraits/lego/${(comment.user_id % 9) + 1}.jpg`, style="width: 100%;")
+                  div
+                    .comment-header(style="display: flex; align-items: center; gap: 12px; margin-bottom: 4px;")
+                      span(style="font-weight: 600; font-size: 14px;") #{comment.full_name || 'Anonymous User'}
+                      span(style="font-size: 12px; color: var(--text-muted);") Student
+                    p(style="font-size: 14px; color: #374151; margin-bottom: 12px;") #{comment.comment_text}
+                    .comment-actions(style="display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); font-weight: 600;")
+                      span(style="cursor: pointer;") Reply
+                      span(style="cursor: pointer; display: flex; align-items: center; gap: 6px;") 
+                        i.far.fa-thumbs-up
+                        | 0
+          else
+            p(style="color: var(--text-muted); font-style: italic;") No comments yet. Be the first to start the discussion!
 
     // Right Sidebar (Syllabus)
     .sidebar-area(style="width: 350px; background: #fafaf9; border-left: 1px solid var(--gray-200); padding: 40px 24px;")
@@ -127,57 +119,24 @@ block content
           .progress-fill(style="height: 100%; background: var(--primary); width: 65%;")
           
       ul.lesson-list(style="display: flex; flex-direction: column; gap: 4px;")
-        // Completed Items
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px;")
-          .icon(style="color: var(--primary); margin-top: 2px;")
-            i.fas.fa-check-circle
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 1. Introduction to Advanced React
-            .duration(style="font-size: 12px; color: var(--text-muted);") 04:20
-            
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px;")
-          .icon(style="color: var(--primary); margin-top: 2px;")
-            i.fas.fa-check-circle
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 2. React Hooks Deep Dive
-            .duration(style="font-size: 12px; color: var(--text-muted);") 15:45
-            
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px;")
-          .icon(style="color: var(--primary); margin-top: 2px;")
-            i.fas.fa-check-circle
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 3. The useEffect Hook Patterns
-            .duration(style="font-size: 12px; color: var(--text-muted);") 22:10
-            
-        // Active Item
-        li(style="background: #fff1eb; padding: 16px 12px; border-radius: 8px; display: flex; gap: 16px; border: 1px solid rgba(242, 98, 46, 0.2);")
-          .icon(style="color: var(--primary); margin-top: 2px;")
-            i.far.fa-play-circle
-          div
-            .title(style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 4px;") 4. Building Custom Hooks
-            .duration(style="font-size: 12px; color: var(--text-muted);") 20:00 • Now Playing
-            
-        // Locked Items
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px; opacity: 0.6;")
-          .icon(style="color: var(--text-muted); margin-top: 2px;")
-            i.fas.fa-lock
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 5. Performance Optimization
-            .duration(style="font-size: 12px; color: var(--text-muted);") 18:30
-            
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px; opacity: 0.6;")
-          .icon(style="color: var(--text-muted); margin-top: 2px;")
-            i.fas.fa-lock
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 6. Portals & Error Boundaries
-            .duration(style="font-size: 12px; color: var(--text-muted);") 12:15
-            
-        li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px; opacity: 0.6;")
-          .icon(style="color: var(--text-muted); margin-top: 2px;")
-            i.fas.fa-lock
-          div
-            .title(style="font-size: 14px; font-weight: 500;") 7. Final Project: Real-time Dashboard
-            .duration(style="font-size: 12px; color: var(--text-muted);") 01:45:00
+        if courseLessons && courseLessons.length > 0
+          each cl in courseLessons
+            if cl.lesson_id === lesson.lesson_id
+              a(href=`/lesson/${cl.lesson_id}`, style="text-decoration: none; color: inherit;")
+                li(style="background: #fff1eb; padding: 16px 12px; border-radius: 8px; display: flex; gap: 16px; border: 1px solid rgba(242, 98, 46, 0.2); cursor: pointer;")
+                  .icon(style="color: var(--primary); margin-top: 2px;")
+                    i.far.fa-play-circle
+                  div
+                    .title(style="font-size: 14px; font-weight: 600; color: var(--primary); margin-bottom: 4px;") #{cl.lesson_order}. #{cl.lesson_title}
+                    .duration(style="font-size: 12px; color: var(--text-muted);") Now Playing
+            else
+              a(href=`/lesson/${cl.lesson_id}`, style="text-decoration: none; color: inherit;")
+                li(style="padding: 12px; border-radius: 8px; display: flex; gap: 16px; cursor: pointer; transition: background 0.2s;")
+                  .icon(style="color: var(--text-muted); margin-top: 2px;")
+                    i.far.fa-circle
+                  div
+                    .title(style="font-size: 14px; font-weight: 500;") #{cl.lesson_order}. #{cl.lesson_title}
+                    .duration(style="font-size: 12px; color: var(--text-muted);") View Lesson
 
       .resources-box(style="margin-top: 40px; background: white; border: 1px solid var(--gray-200); border-radius: 12px; padding: 24px; text-align: center;")
         button.btn.btn-outline(style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;")
