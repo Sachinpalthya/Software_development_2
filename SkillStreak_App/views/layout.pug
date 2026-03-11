@@ -1,0 +1,79 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title}
+    link(rel="stylesheet", href="/css/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
+  body
+    if showNavbar !== false
+      header.container
+        nav.navbar
+          a.navbar-brand(href="/")
+            .logo-icon
+            | SkillStreak
+          
+          .navbar-menu
+            a(href="/", class=(title.includes("Home") ? "active" : "")) Home
+            a(href="/catalog", class=(title.includes("Explore") ? "active" : "")) Courses
+            a(href="#") Leaderboard
+            a(href="#") Contests
+            
+          .navbar-actions
+            .search-bar
+              i.fas.fa-search
+              input(type="text", placeholder="Search skills...")
+            if user
+              .user-profile(style="display: flex; align-items: center; gap: 12px; margin-left: 16px;")
+                .avatar(style="width: 36px; height: 36px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;") #{user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                .user-info(style="display: flex; flex-direction: column;")
+                  span(style="font-size: 14px; font-weight: 600; line-height: 1;") #{user.name}
+                  a(href="/logout", style="font-size: 12px; color: var(--text-muted);") Logout
+            else
+              a.btn-text(href="/login", style="font-weight:500; margin-left:16px; margin-right:10px;") Login
+              a.btn.btn-primary(href="/register") Register
+            
+    main
+      block content
+      
+    if showFooter !== false
+      footer.container
+        .footer-grid
+          div
+            .footer-logo
+              .logo-icon(style="width:20px; height:20px; font-size:12px;")
+              | SkillStreak
+            p.footer-desc Building the future of technical education through gamification and community-led growth. Join the movement.
+            .social-links(style="display:flex; gap:16px; color:var(--text-muted);")
+              i.fab.fa-twitter
+              i.fab.fa-discord
+              i.fab.fa-linkedin
+          .footer-links
+            h4 Platform
+            ul
+              li: a(href="/catalog") Course Catalog
+              li: a(href="#") Leaderboard
+              li: a(href="#") Coding Contests
+              li: a(href="#") Pricing
+          .footer-links
+            h4 Company
+            ul
+              li: a(href="#") About Us
+              li: a(href="#") Careers
+              li: a(href="#") Blog
+              li: a(href="#") Press
+          .footer-links
+            h4 Support
+            ul
+              li: a(href="#") Help Center
+              li: a(href="#") Contact Us
+              li: a(href="#") Community
+              li: a(href="#") Status
+        
+        .footer-bottom
+          div © 2024 SkillStreak Inc. All rights reserved.
+          .footer-bottom-links
+            a(href="#") Privacy Policy
+            a(href="#") Terms of Service
+            a(href="#") Cookie Settings
