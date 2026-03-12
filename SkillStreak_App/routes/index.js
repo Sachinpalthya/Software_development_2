@@ -97,13 +97,73 @@ router.get('/logout', (req, res) => {
 });
 
 // Course Catalog Page
-router.get('/catalog', (req, res) => {
-    res.render('catalog', { title: 'Explore Catalog | SkillStreak' });
+router.get('/catalog', async (req, res) => {
+    try {
+        const [courses] = await db.execute('SELECT * FROM courses');
+        res.render('catalog', { title: 'Explore Catalog | SkillStreak', courses });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Database error');
+    }
+});
+
+// Redirect to first lesson of a course
+router.get('/course/:id', async (req, res) => {
+    try {
+        const [lessons] = await db.execute('SELECT lesson_id FROM lessons WHERE course_id = ? ORDER BY lesson_order LIMIT 1', [req.params.id]);
+        if (lessons.length > 0) {
+            res.redirect(`/lesson/${lessons[0].lesson_id}`);
+        } else {
+            res.status(404).send('No lessons found for this course.');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Database error');
+    }
 });
 
 // Lesson View Page
-router.get('/lesson', (req, res) => {
-    res.render('lesson', { title: 'Lesson View | SkillStreak', showFooter: false });
+router.get('/lesson/:id', async (req, res) => {
+    try {
+        const lessonId = req.params.id;
+        
+        // Fetch lesson details
+        const [lessons] = await db.execute(`
+            SELECT l.*, c.course_title 
+            FROM lessons l 
+            JOIN courses c ON l.course_id = c.course_id 
+            WHERE l.lesson_id = ?
+        `, [lessonId]);
+        
+        if (lessons.length === 0) {
+            return res.status(404).send('Lesson not found');
+        }
+        const lesson = lessons[0];
+
+        // Fetch comments for this lesson
+        const [comments] = await db.execute(`
+            SELECT c.*, u.full_name 
+            FROM comments c 
+            LEFT JOIN users u ON c.user_id = u.user_id 
+            WHERE c.lesson_id = ?
+        `, [lessonId]);
+
+        // Fetch all lessons in this course for the sidebar
+        const [courseLessons] = await db.execute(`
+            SELECT * FROM lessons WHERE course_id = ? ORDER BY lesson_order
+        `, [lesson.course_id]);
+
+        res.render('lesson', { 
+            title: `${lesson.lesson_title} | SkillStreak`, 
+            showFooter: false,
+            lesson,
+            comments,
+            courseLessons
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Database error');
+    }
 });
 
 module.exports = router;
