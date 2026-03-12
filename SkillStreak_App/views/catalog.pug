@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  .container(style="padding: 40px 0;")
+    .catalog-header(style="margin-bottom: 40px;")
+      h1(style="font-size: 48px; margin-bottom: 16px;") Explore Catalog
+      p(style="font-size: 18px; color: var(--text-muted); max-width: 600px;") Master new skills with our industry-leading courses. From technical deep-dives to essential soft skills.
+      
+    .search-filter-section(style="margin-bottom: 40px;")
+      .search-box-large(style="display: flex; gap: 16px; margin-bottom: 24px;")
+        .input-wrapper(style="flex: 1; position: relative;")
+          i.fas.fa-search(style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px;")
+          input.form-input(type="text", placeholder="Search for courses, skills, or instructors...", style="padding: 16px 20px 16px 50px; font-size: 16px; border-radius: 12px;")
+        button.btn(style="background: var(--text-dark); color: white; border-radius: 12px; padding: 0 24px; display: flex; align-items: center; gap: 8px;")
+          i.fas.fa-sliders-h
+          | Filters
+          
+      .category-pills(style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;")
+        button.pill.active(style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer;") All Courses
+        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
+          | &lt; &gt; Technical
+          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
+        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
+          i.fas.fa-users(style="color: var(--primary);")
+          | Soft Skills
+          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
+        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
+          i.fas.fa-briefcase(style="color: #eab308;")
+          | Business
+          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
+        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
+          i.fas.fa-palette(style="color: #ef4444;")
+          | Design
+          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
+
+    .recommended-section(style="margin-bottom: 60px;")
+      .section-header(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;")
+        h2(style="font-size: 24px;") Recommended for You
+        a(href="#", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all →
+        
+      .course-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
+        if courses && courses.length > 0
+          each course in courses
+            a(href=`/course/${course.course_id}`, style="text-decoration: none; color: inherit;")
+              .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; height: 100%; transition: transform 0.2s; &:hover { transform: translateY(-4px); }")
+                .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
+                  span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") #{course.course_level}
+                .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
+                  h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") #{course.course_title}
+                  p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") #{course.course_description}
+                  .not-started(style="margin-top: 16px; display: flex; justify-content: space-between; align-items: center;")
+                    span(style="color: var(--text-muted); font-size: 12px; font-style: italic;") Not started
+                    .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
+                      i.fas.fa-play
+        else
+          p(style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 18px;") No courses available at the moment.
+
+    .load-more(style="text-align: center; margin-top: 40px;")
+      button.btn.btn-outline(style="border-radius: 30px; padding: 12px 32px; font-weight: 600;") Load More Courses

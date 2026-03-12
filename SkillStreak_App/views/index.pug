@@ -1,0 +1,196 @@
+extends layout
+
+block content
+  // Hero Section
+  section.hero-section.container(style="display: flex; align-items: center; justify-content: space-between; padding: 60px 0; min-height: 80vh;")
+    .hero-content(style="flex: 1; max-width: 600px;")
+      span.badge(style="background-color: #ffd8cc; color: var(--primary); padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 14px; margin-bottom: 20px; display: inline-block;") ⚡ Level Up Your Career
+      h1(style="font-size: 64px; margin-bottom: 24px; color: var(--text-dark);") Let's Master New Skills, #[br] #[span(style="color: var(--primary);") Build Your Streak]
+      p(style="font-size: 18px; color: var(--text-muted); margin-bottom: 40px;") Join the most engaging gamified learning platform to level up your career with daily challenges, competitive leaderboards, and a global community of developers.
+      div(style="display: flex; gap: 16px;")
+        a.btn.btn-primary(href="/register", style="padding: 14px 32px; font-size: 16px;") Get Started Free
+        a.btn.btn-outline(href="/catalog", style="padding: 14px 32px; font-size: 16px;") Browse Courses
+      
+      div(style="margin-top: 40px; display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--text-muted);")
+        .avatars(style="display: flex;")
+          div(style="width:32px; height:32px; border-radius:50%; background:#e2e8f0; border:2px solid white; z-index: 3;")
+          div(style="width:32px; height:32px; border-radius:50%; background:#cbd5e1; border:2px solid white; margin-left:-10px; z-index: 2;")
+          div(style="width:32px; height:32px; border-radius:50%; background:#94a3b8; border:2px solid white; margin-left:-10px; z-index: 1;")
+        span Join us for skill learning 
+        
+    .hero-image(style="flex: 1; position: relative; text-align: right;")
+      img(src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80", alt="Coding Environment", style="border-radius: 24px; width: 100%; max-width: 500px; box-shadow: var(--shadow-xl);")
+      .floating-card(style="position: absolute; top: -20px; right: 20px; background: white; padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-md);")
+        i.fas.fa-fire(style="color: var(--primary); font-size: 20px;")
+        div
+          div(style="font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase;") Current Streak
+          div(style="font-size: 16px; font-weight: 700; color: var(--text-dark);") 15 Days
+
+  // Weekly Hall of Fame
+  section.container(style="padding: 60px 0;")
+    div(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;")
+      div
+        h2(style="font-size: 32px; margin-bottom: 8px;") Weekly Hall of Fame
+        p.text-muted The fastest growing minds this week.
+      a(href="#", style="color: var(--primary); font-weight: 600;") Full Leaderboard →
+      
+    .hof-grid(style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;")
+      // Card 1
+      .card(style="background: white; border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
+        .user-header(style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;")
+          .avatar(style="width: 50px; height: 50px; border-radius: 50%; background: #ffd8cc; position: relative;")
+            .badge(style="position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px; background: #eab308; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white;") 1
+          div
+            h3(style="font-size: 18px;") Rakshitha 
+            .streak(style="color: var(--primary); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 4px;") 
+              i.fas.fa-fire
+              | 42 Day Streak
+        .stats(style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--gray-100);")
+          span(style="color: var(--text-muted); font-size: 14px;") Weekly XP Earned
+          span(style="font-weight: 700; font-size: 18px;") 15,400
+
+      // Card 2
+      .card(style="background: white; border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
+        .user-header(style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;")
+          .avatar(style="width: 50px; height: 50px; border-radius: 50%; background: #e2e8f0; position: relative;")
+            .badge(style="position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px; background: #94a3b8; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white;") 2
+          div
+            h3(style="font-size: 18px;") Deekshitha 
+            .streak(style="color: var(--primary); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 4px;") 
+              i.fas.fa-fire
+              | 38 Day Streak
+        .stats(style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--gray-100);")
+          span(style="color: var(--text-muted); font-size: 14px;") Weekly XP Earned
+          span(style="font-weight: 700; font-size: 18px;") 14,200
+
+      // Card 3
+      .card(style="background: white; border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;")
+        .user-header(style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;")
+          .avatar(style="width: 50px; height: 50px; border-radius: 50%; background: #fed7aa; position: relative;")
+            .badge(style="position: absolute; bottom: -5px; right: -5px; width: 24px; height: 24px; background: #d97706; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 2px solid white;") 3
+          div
+            h3(style="font-size: 18px;") pavan palthya
+            .streak(style="color: var(--primary); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 4px;") 
+              i.fas.fa-fire
+              | 31 Day Streak
+        .stats(style="display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--gray-100);")
+          span(style="color: var(--text-muted); font-size: 14px;") Weekly XP Earned
+          span(style="font-weight: 700; font-size: 18px;") 13,850
+
+  // Live Event Banner
+  section.container(style="margin: 40px auto;")
+    .banner(style="background-color: var(--text-dark); color: white; border-radius: 24px; padding: 60px; display: flex; justify-content: space-between; align-items: center; position: relative; overflow: hidden;")
+      div(style="position: relative; z-index: 2; max-width: 600px;")
+        span.badge(style="background: rgba(242, 98, 46, 0.2); color: var(--primary); padding: 6px 12px; border-radius: 4px; font-weight: 600; font-size: 12px; letter-spacing: 1px; margin-bottom: 16px; display: inline-block;") LIVE EVENT
+        h2(style="font-size: 40px; margin-bottom: 16px;") Ultimate Algorithms Challenge #42
+        p(style="color: #9ca3af; margin-bottom: 32px; font-size: 18px;") Test your logic and coding speed. Top 10 finishers win limited edition SkillStreak badges and 500 bonus XP!
+        .countdown(style="display: flex; gap: 24px; margin-bottom: 32px;")
+          div(style="text-align: center;")
+            div(style="font-size: 32px; font-weight: 700;") 02
+            div(style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;") DAYS
+          span(style="font-size: 32px; color: #4b5563;") :
+          div(style="text-align: center;")
+            div(style="font-size: 32px; font-weight: 700;") 14
+            div(style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;") HOURS
+          span(style="font-size: 32px; color: #4b5563;") :
+          div(style="text-align: center;")
+            div(style="font-size: 32px; font-weight: 700;") 35
+            div(style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;") MINS
+        a.btn.btn-primary(href="#") Register Now
+      .bg-icon(style="position: absolute; right: 80px; top: 50%; transform: translateY(-50%); font-size: 180px; color: rgba(255,255,255,0.05); z-index: 1;") 
+        | &lt; / &gt;
+
+  // Popular Learning Paths
+  section.container(style="padding: 60px 0;")
+    div(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;")
+      div
+        h2(style="font-size: 32px; margin-bottom: 8px;") Popular Learning Paths
+        p.text-muted Curated tracks to help you transition to tech.
+      div(style="display: flex; gap: 8px;")
+        button.btn-outline(style="width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center;") &lt;
+        button.btn-outline(style="width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center;") &gt;
+        
+    .paths-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
+      // Path 1
+      .card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s;")
+        .card-img-top(style="hight: 160px; background: #0f766e; color: white; display:flex; align-items:center; justify-content:center; position:relative; padding: 40px;")
+          span(style="position:absolute; top:12px; left:12px; background:white; color:#333; font-size:10px; font-weight:bold; padding:4px 8px; border-radius:4px;") Tech
+          i.fas.fa-atom(style="font-size: 48px;")
+        .card-body(style="padding: 24px;")
+          h3(style="font-size: 16px; margin-bottom: 8px; height: 48px;") Mastering React 18 & Advanced Hooks
+          .meta(style="font-size: 12px; color: var(--text-muted); display:flex; gap:12px; margin-bottom: 24px;")
+            span #[i.far.fa-clock] 12 Hours
+            span 15 Lessons
+          .card-footer(style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--gray-100); padding-top: 16px;")
+            span(style="font-weight: 600; font-size: 14px;") #[i.fas.fa-star(style="color:#eab308;")] 4.9
+            span(style="color: var(--primary); font-weight: bold;") Free
+
+      // Path 2
+      .card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s;")
+        .card-img-top(style="height: 160px; background: url('https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=300&q=80') center/cover; position:relative;")
+          span(style="position:absolute; top:12px; left:12px; background:white; color:#333; font-size:10px; font-weight:bold; padding:4px 8px; border-radius:4px;") Soft Skills
+        .card-body(style="padding: 24px;")
+          h3(style="font-size: 16px; margin-bottom: 8px; height: 48px;") Agile Leadership & Team Communication
+          .meta(style="font-size: 12px; color: var(--text-muted); display:flex; gap:12px; margin-bottom: 24px;")
+            span #[i.far.fa-clock] 8 Hours
+            span 15 Lessons
+          .card-footer(style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--gray-100); padding-top: 16px;")
+            span(style="font-weight: 600; font-size: 14px;") #[i.fas.fa-star(style="color:#eab308;")] 4.7
+            span(style="color: var(--primary); font-weight: bold;") Free
+
+      // Path 3
+      .card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s;")
+        .card-img-top(style="height: 160px; background: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80') center/cover; position:relative;")
+          span(style="position:absolute; top:12px; left:12px; background:white; color:#333; font-size:10px; font-weight:bold; padding:4px 8px; border-radius:4px;") Data
+        .card-body(style="padding: 24px;")
+          h3(style="font-size: 16px; margin-bottom: 8px; height: 48px;") Python for Data Analysis Bootcamp
+          .meta(style="font-size: 12px; color: var(--text-muted); display:flex; gap:12px; margin-bottom: 24px;")
+            span #[i.far.fa-clock] 24 Hours
+            span 45 Lessons
+          .card-footer(style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--gray-100); padding-top: 16px;")
+            span(style="font-weight: 600; font-size: 14px;") #[i.fas.fa-star(style="color:#eab308;")] 4.8
+            span(style="color: var(--primary); font-weight: bold;") Free
+
+      // Path 4
+      .card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); cursor: pointer; transition: transform 0.2s;")
+        .card-img-top(style="height: 160px; background: url('https://images.unsplash.com/photo-1542744094-24638ea0b56c?auto=format&fit=crop&w=300&q=80') center/cover; position:relative;")
+          span(style="position:absolute; top:12px; left:12px; background:white; color:#333; font-size:10px; font-weight:bold; padding:4px 8px; border-radius:4px;") Design
+        .card-body(style="padding: 24px;")
+          h3(style="font-size: 16px; margin-bottom: 8px; height: 48px;") UI/UX Foundations: Figma to Web
+          .meta(style="font-size: 12px; color: var(--text-muted); display:flex; gap:12px; margin-bottom: 24px;")
+            span #[i.far.fa-clock] 15 Hours
+            span 20 Lessons
+          .card-footer(style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--gray-100); padding-top: 16px;")
+            span(style="font-weight: 600; font-size: 14px;") #[i.fas.fa-star(style="color:#eab308;")] 4.5
+            span(style="color: var(--primary); font-weight: bold;") Free
+
+  // Features grid
+  section(style="background-color: #f3ede4; padding: 80px 0;")
+    .container(style="text-align: center;")
+      h2(style="font-size: 32px; margin-bottom: 16px;") Why Learn on SkillStreak?
+      p(style="color: var(--text-muted); max-width: 600px; margin: 0 auto 40px;") We've combined the dopamine of gaming with the rigor of higher education to help you achieve more in less time.
+      
+      .features-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
+        .feature-card(style="background: white; padding: 32px 24px; border-radius: 16px; text-align: center; box-shadow: var(--shadow-sm);")
+          .icon(style="width: 56px; height: 56px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 24px;")
+            i.fas.fa-gamepad
+          h3(style="font-size: 18px; margin-bottom: 12px;") Gamified Learning
+          p(style="color: var(--text-muted); font-size: 14px;") Earn XP, unlock badges, and climb the leaderboards as you master new concepts.
+        
+        .feature-card(style="background: white; padding: 32px 24px; border-radius: 16px; text-align: center; box-shadow: var(--shadow-sm);")
+          .icon(style="width: 56px; height: 56px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 24px;")
+            i.fas.fa-users
+          h3(style="font-size: 18px; margin-bottom: 12px;") Community Support
+          p(style="color: var(--text-muted); font-size: 14px;") Join thousands of learners to solve problems, share tips, and collaborate on projects.
+          
+        .feature-card(style="background: white; padding: 32px 24px; border-radius: 16px; text-align: center; box-shadow: var(--shadow-sm);")
+          .icon(style="width: 56px; height: 56px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 24px;")
+            i.fas.fa-chalkboard-teacher
+          h3(style="font-size: 18px; margin-bottom: 12px;") Mentor Access
+          p(style="color: var(--text-muted); font-size: 14px;") Get 1-on-1 feedback from industry professionals who are currently working at top firms.
+          
+        .feature-card(style="background: white; padding: 32px 24px; border-radius: 16px; text-align: center; box-shadow: var(--shadow-sm);")
+          .icon(style="width: 56px; height: 56px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 24px;")
+            i.fas.fa-briefcase
+          h3(style="font-size: 18px; margin-bottom: 12px;") Job Opportunities
+          p(style="color: var(--text-muted); font-size: 14px;") Our partner network looks specifically for top-ranking SkillStreak learners for new roles.
