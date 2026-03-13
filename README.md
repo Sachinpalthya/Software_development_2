@@ -20,8 +20,7 @@ The project is built by following standard **Software Engineering principles** a
 ---
 
 ## 💡 Project Idea
-🚧 **To Be Decided**  
-The project idea will be finalized after requirement analysis and team discussions during the initial sprint.
+skill streak-Smart Knowledge Sharing and Skill Development Platform
 
 ---
 
