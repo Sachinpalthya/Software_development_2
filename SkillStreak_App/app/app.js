@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
-const routes = require('./routes');
-const db = require('./db'); // Initializes MySQL connection to skill_platform on startup
+const routes = require('../routes');
+const db = require('../db'); // Initializes MySQL connection to skill_platform on startup
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +11,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 // Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../static')));
 
 // Parse JSON and URL-encoded bodies for form submissions
 app.use(express.json());
