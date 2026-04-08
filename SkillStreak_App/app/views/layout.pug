@@ -15,8 +15,10 @@ html(lang="en")
             | SkillStreak
           
           .navbar-menu
-            a(href="/", class=(title.includes("Home") ? "active" : "")) Home
-            a(href="/course", class=(title.includes("Explore") ? "active" : "")) Courses
+            a(href="/", class=(title && title.includes("Home") ? "active" : "")) Home
+            a(href="/course", class=(title && title.includes("Explore") ? "active" : "")) Courses
+            a(href="/profile", class=(title && title.includes("Profile") ? "active" : "")) Profile
+            a(href="/certificates", class=(title && title.includes("Certificate") ? "active" : "")) Certificates
             a(href="#") Leaderboard
             a(href="#") Contests
             
@@ -26,9 +28,10 @@ html(lang="en")
               input(type="text", placeholder="Search skills...")
             if user
               .user-profile(style="display: flex; align-items: center; gap: 12px; margin-left: 16px;")
-                .avatar(style="width: 36px; height: 36px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;") #{user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                a(href="/profile")
+                  .avatar(style="width: 36px; height: 36px; background: #ffe4d6; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;") #{user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                 .user-info(style="display: flex; flex-direction: column;")
-                  span(style="font-size: 14px; font-weight: 600; line-height: 1;") #{user.name}
+                  a(href="/profile", style="font-size: 14px; font-weight: 600; line-height: 1;") #{user.name}
                   a(href="/logout", style="font-size: 12px; color: var(--text-muted);") Logout
             else
               a.btn-text(href="/login", style="font-weight:500; margin-left:16px; margin-right:10px;") Login
