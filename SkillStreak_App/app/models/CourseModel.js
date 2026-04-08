@@ -1,10 +1,10 @@
 const db = require('../../db');
 
-class CatalogModel {
+class courseModel {
     async getAllCourses() {
         const [courses] = await db.execute('SELECT * FROM courses');
         return courses;
     }
 }
 
-module.exports = new CatalogModel();
+module.exports = new courseModel();
