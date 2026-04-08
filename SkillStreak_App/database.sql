@@ -1,5 +1,5 @@
 -- Create Database
-CREATE DATABASE skill_platform;
+CREATE DATABASE IF NOT EXISTS skill_platform;
 
 USE skill_platform;
 
@@ -115,6 +115,20 @@ CREATE TABLE streaks (
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE certificates (
+    certificate_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    cert_title VARCHAR(150),
+    cert_description TEXT,
+    issue_date DATE,
+    auth_id VARCHAR(50),
+    image_url VARCHAR(255),
+    tag_name VARCHAR(50),
+    tag_color VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
 
 INSERT INTO users (user_id, full_name, email, password, role) VALUES
 (1, 'karthik', 'karthik@gmail.com.com', 'hashedpass1', 'student'),
@@ -191,3 +205,9 @@ INSERT INTO streaks (streak_id, user_id, current_streak, last_activity_date) VAL
 (3, 3, 7, '2024-01-12'),
 (4, 4, 2, '2024-01-05');
 
+INSERT INTO certificates (certificate_id, user_id, cert_title, cert_description, issue_date, auth_id, image_url, tag_name, tag_color) VALUES
+(1, 1, 'Mastering React', 'Advanced state management, performance hooks, and architectural patterns for enterprise apps.', '2024-10-24', 'SKL-RT-9821-X', 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80', 'EXPERT', '#f59e0b'),
+(2, 1, 'Agile Leadership', 'Strategic framework implementation, scrum mastery, and high-velocity team orchestration.', '2024-09-12', 'SKL-AG-4482-B', 'https://images.unsplash.com/photo-1552581234-26160f608093?auto=format&fit=crop&w=600&q=80', 'PROFESSIONAL', '#3b82f6'),
+(3, 1, 'Cloud Architecture', 'Designing scalable microservices, serverless deployments, and multi-region networking.', '2024-08-05', 'SKL-CL-1103-W', 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80', 'EXPERT', '#f59e0b'),
+(4, 1, 'UI/UX Fundamentals', 'Comprehensive study of user interaction, wireframing, and accessible design systems.', '2024-07-20', 'SKL-UX-2231-M', 'https://images.unsplash.com/photo-1542744094-24638ea0b56c?auto=format&fit=crop&w=600&q=80', 'FOUNDATION', '#22c55e'),
+(5, 1, 'Python Data Analysis', 'Data wrangling with Pandas, statistical modeling, and advanced visual representations.', '2024-06-15', 'SKL-PY-8874-D', 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80', 'ADVANCED', '#a855f7');
