@@ -137,12 +137,13 @@ router.get('/profile', async (req, res) => {
 });
 
 // Certificates Gallery Page
-router.get('/certificates', (req, res) => {
+router.get('/certificates', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
     try {
-        const data = certificateService.getCertificatesData();
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await certificateService.getCertificatesData(userId);
         res.render('certificates', data);
     } catch (error) {
         console.error("Error generating certificates gallery:", error);
