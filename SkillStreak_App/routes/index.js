@@ -7,10 +7,22 @@ const loginService = require('../app/services/loginService');
 const courseService = require('../app/services/courseService');
 const lessonService = require('../app/services/lessonService');
 
-// Google Auth Placeholder
-router.get('/auth/google', (req, res) => {
-    res.render('register', { title: 'Create Account | SkillStreak', showNavbar: false, showFooter: false, error: 'Google Sign In is not set up yet. Please use standard registration.' });
-});
+const passport = require('passport');
+
+// Google Authentication Route
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+// Google Authentication Callback
+router.get('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login', session: false }),
+    (req, res) => {
+        // Successful authentication
+        req.session.user = req.user;
+        res.redirect('/');
+    }
+);
 
 // Home Page
 router.get('/', (req, res) => {
@@ -30,7 +42,7 @@ router.post('/register', async (req, res) => {
     try {
         const user = await registerService.registerUser(full_name, email, password, password_confirm, role);
         req.session.user = user;
-        res.redirect('/course');
+        res.redirect('/');
     } catch (error) {
         console.error(error);
         res.render('register', { title: 'Create Account | SkillStreak', showNavbar: false, showFooter: false, error: error.message });
@@ -49,7 +61,7 @@ router.post('/login', async (req, res) => {
     try {
         const user = await loginService.authenticateUser(email, password);
         req.session.user = user;
-        res.redirect('/course');
+        res.redirect('/');
     } catch (error) {
         console.error(error);
         res.render('login', { title: 'Login | SkillStreak', showNavbar: false, showFooter: false, error: error.message });
