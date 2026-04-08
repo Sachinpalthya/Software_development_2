@@ -1,5 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const passport = require('passport');
+require('./config/passport'); // Load Passport configuration
+
 const routes = require('../routes');
 const db = require('../db'); // Initializes MySQL connection to skill_platform on startup
 
@@ -16,6 +20,9 @@ app.use(express.static(path.join(__dirname, '../static')));
 // Parse JSON and URL-encoded bodies for form submissions
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Initialize Passport
+app.use(passport.initialize());
 
 // Session Configuration
 const session = require('express-session');
