@@ -6,6 +6,8 @@ const registerService = require('../app/services/registerService');
 const loginService = require('../app/services/loginService');
 const courseService = require('../app/services/courseService');
 const lessonService = require('../app/services/lessonService');
+const profileService = require('../app/services/profileservice');
+const certificateService = require('../app/services/certificateservice');
 
 const passport = require('passport');
 
@@ -115,6 +117,36 @@ router.get('/lesson/:id', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Database error');
+    }
+});
+
+// Profile Page
+router.get('/profile', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        // Fallback for user id property based on how it's stored in session
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await profileService.getProfileData(userId);
+        res.render('profile', data);
+    } catch (error) {
+        console.error("Error generating profile:", error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Certificates Gallery Page
+router.get('/certificates', (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const data = certificateService.getCertificatesData();
+        res.render('certificates', data);
+    } catch (error) {
+        console.error("Error generating certificates gallery:", error);
+        res.status(500).send('Server Error');
     }
 });
 
