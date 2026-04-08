@@ -4,7 +4,7 @@ const router = express.Router();
 const indexService = require('../app/services/indexService');
 const registerService = require('../app/services/registerService');
 const loginService = require('../app/services/loginService');
-const catalogService = require('../app/services/catalogService');
+const courseService = require('../app/services/courseService');
 const lessonService = require('../app/services/lessonService');
 
 // Google Auth Placeholder
@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
     try {
         const user = await registerService.registerUser(full_name, email, password, password_confirm, role);
         req.session.user = user;
-        res.redirect('/catalog');
+        res.redirect('/course');
     } catch (error) {
         console.error(error);
         res.render('register', { title: 'Create Account | SkillStreak', showNavbar: false, showFooter: false, error: error.message });
@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
     try {
         const user = await loginService.authenticateUser(email, password);
         req.session.user = user;
-        res.redirect('/catalog');
+        res.redirect('/course');
     } catch (error) {
         console.error(error);
         res.render('login', { title: 'Login | SkillStreak', showNavbar: false, showFooter: false, error: error.message });
@@ -64,11 +64,11 @@ router.get('/logout', (req, res) => {
     });
 });
 
-// Course Catalog Page
-router.get('/catalog', async (req, res) => {
+// Course course Page
+router.get('/course', async (req, res) => {
     try {
-        const data = await catalogService.getCatalogData();
-        res.render('catalog', data);
+        const data = await courseService.getcourseData();
+        res.render('course', data);
     } catch (error) {
         console.error(error);
         res.status(500).send('Database error');
