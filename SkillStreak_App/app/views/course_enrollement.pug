@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  .container(style="padding: 40px 0;")
+    .course-header(style="margin-bottom: 40px;")
+      h1(style="font-size: 48px; margin-bottom: 16px;") My Enrollments
+      p(style="font-size: 18px; color: var(--text-muted); max-width: 600px;") Track your progress and jump straight back into learning. Your active courses are here.
+      
+    .course-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
+      if enrolledCourses && enrolledCourses.length > 0
+        each course in enrolledCourses
+          a(href=`/course/${course.course_id}`, style="text-decoration: none; color: inherit;")
+            .course-card(style="background: white; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; height: 100%; transition: transform 0.2s;")
+              .course-img(style="height: 140px; background: url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80') center/cover; position: relative;")
+                span.badge(style="position: absolute; top: 12px; left: 12px; background: var(--primary); color: white; font-size: 10px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase;") #{course.course_level}
+              .course-info(style="padding: 20px; flex: 1; display: flex; flex-direction: column;")
+                h3(style="font-size: 16px; margin-bottom: 8px; line-height: 1.4;") #{course.course_title}
+                p(style="color: var(--text-muted); font-size: 14px; margin-bottom: auto;") #{course.course_description}
+                .progress-row(style="margin-top: 16px; display: flex; flex-direction: column; gap: 8px;")
+                  .progress-bar(style="width: 100%; background: #e5e7eb; border-radius: 4px; height: 6px; overflow: hidden;")
+                    .progress-fill(style="width: 30%; background: var(--primary); height: 100%; border-radius: 4px;")
+                  .progress-stats(style="display: flex; justify-content: space-between; align-items: center;")
+                    span(style="color: var(--text-muted); font-size: 12px;") In Progress
+                    .play-btn(style="width: 32px; height: 32px; background: #fff1eb; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px;")
+                      i.fas.fa-play
+      else
+        .empty-state(style="grid-column: 1 / -1; text-align: center; padding: 60px 40px; background: white; border-radius: 16px; box-shadow: var(--shadow-sm);")
+          i.fas.fa-book-open(style="font-size: 48px; color: var(--text-muted); margin-bottom: 16px; display: inline-block; opacity: 0.5;")
+          h3(style="font-size: 20px; font-weight: 600; margin-bottom: 8px;") No courses enrolled yet
+          p(style="color: var(--text-muted); font-size: 16px; margin-bottom: 24px;") You haven't enrolled in any courses. Explore our catalog to find your next skill!
+          a.btn.btn-primary(href="/course", style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 32px; border-radius: 30px;") 
+            | Explore Courses
+            i.fas.fa-arrow-right
