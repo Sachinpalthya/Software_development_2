@@ -8,6 +8,7 @@ const courseService = require('../app/services/courseService');
 const lessonService = require('../app/services/lessonService');
 const profileService = require('../app/services/profileservice');
 const certificateService = require('../app/services/certificateservice');
+const contestService = require('../app/services/contestService');
 
 const passport = require('passport');
 
@@ -30,6 +31,17 @@ router.get('/auth/google/callback',
 router.get('/', (req, res) => {
     const data = indexService.getIndexData();
     res.render('index', data);
+});
+
+// Contest Page
+router.get('/contest', async (req, res) => {
+    try {
+        const data = await contestService.getContestData();
+        res.render('contest', data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error loading contest page');
+    }
 });
 
 // Registration Page (Frontend)
