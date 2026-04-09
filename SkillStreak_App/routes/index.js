@@ -10,6 +10,7 @@ const profileService = require('../app/services/profileservice');
 const certificateService = require('../app/services/certificateservice');
 const enrollmentService = require('../app/services/course_enrollment_service');
 const contestService = require('../app/services/contestService');
+const leaderboardService = require('../app/services/leaderboardService');
 
 const passport = require('passport');
 
@@ -164,6 +165,35 @@ router.get('/certificates', async (req, res) => {
     }
 });
 
+// Leaderboard Page
+router.get('/leaderboard', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await leaderboardService.getLeaderboardData(userId);
+        res.render('leaderboard', data);
+    } catch (error) {
+        console.error("Error generating leaderboard:", error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Enrollments Page
+router.get('/enrollments', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await enrollmentService.getEnrollmentData(userId);
+        res.render('course_enrollement', data);
+    } catch (error) {
+        console.error("Error generating enrollments:", error);
+        res.status(500).send('Server Error');
+    }
+});
 
 // Enroll in a Course route
 router.post('/enroll/:courseId', async (req, res) => {
