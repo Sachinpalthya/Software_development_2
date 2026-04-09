@@ -33,6 +33,17 @@ router.get('/', (req, res) => {
     res.render('index', data);
 });
 
+// Contest Page
+router.get('/contest', async (req, res) => {
+    try {
+        const data = await contestService.getContestData();
+        res.render('contest', data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error loading contest page');
+    }
+});
+
 // Registration Page (Frontend)
 router.get('/register', (req, res) => {
     res.render('register', { title: 'Create Account | SkillStreak', showNavbar: false, showFooter: false });
