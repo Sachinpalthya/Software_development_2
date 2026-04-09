@@ -5,6 +5,8 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title}
     link(rel="stylesheet", href="/css/style.css")
+    if title && title.includes("Ranking")
+      link(rel="stylesheet", href="/css/leaderboard.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css")
   body
     if showNavbar !== false
@@ -19,7 +21,7 @@ html(lang="en")
             a(href="/course", class=(title && title.includes("Explore") ? "active" : "")) Courses
             a(href="/profile", class=(title && title.includes("Profile") ? "active" : "")) Profile
             a(href="/certificates", class=(title && title.includes("Certificate") ? "active" : "")) Certificates
-            a(href="#") Leaderboard
+            a(href="/leaderboard", class=(title && title.includes("Ranking") ? "active" : "")) Leaderboard
             a(href="/contest", class=(title && title.includes("Contest") ? "active" : "")) Contests
             
           .navbar-actions
@@ -56,7 +58,7 @@ html(lang="en")
             h4 Platform
             ul
               li: a(href="/course") Course course
-              li: a(href="#") Leaderboard
+              li: a(href="/leaderboard") Leaderboard
               li: a(href="/contest") Coding Contests
               li: a(href="#") Pricing
           .footer-links

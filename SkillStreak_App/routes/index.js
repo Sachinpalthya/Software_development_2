@@ -9,6 +9,7 @@ const lessonService = require('../app/services/lessonService');
 const profileService = require('../app/services/profileservice');
 const certificateService = require('../app/services/certificateservice');
 const enrollmentService = require('../app/services/course_enrollment_service');
+const leaderboardService = require('../app/services/leaderboardService');
 
 const passport = require('passport');
 
@@ -159,6 +160,21 @@ router.get('/certificates', async (req, res) => {
         res.render('certificates', data);
     } catch (error) {
         console.error("Error generating certificates gallery:", error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Leaderboard Page
+router.get('/leaderboard', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await leaderboardService.getLeaderboardData(userId);
+        res.render('leaderboard', data);
+    } catch (error) {
+        console.error("Error generating leaderboard:", error);
         res.status(500).send('Server Error');
     }
 });
