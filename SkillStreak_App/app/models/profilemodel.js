@@ -4,11 +4,14 @@ class ProfileModel {
     static async getUserStats(userId) {
         const query = `
             SELECT u.full_name, u.role, 
-                   IFNULL(l.total_score, 0) as xp, 
-                   IFNULL(l.rank_position, 114) as rank,
-                   IFNULL(s.current_streak, 0) as streak
+                   IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 0) as monthly_xp, 
+                   IFNULL((SELECT rank_position FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 114) as monthly_rank,
+                   IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'weekly_contest' LIMIT 1), 0) as weekly_xp, 
+                   IFNULL((SELECT rank_position FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'weekly_contest' LIMIT 1), 0) as weekly_rank,
+                   IFNULL(s.current_streak, 0) as streak,
+                   (SELECT COUNT(*) FROM contest_participants WHERE user_id = u.user_id) as solved_count,
+                   (SELECT COUNT(*) FROM reflections WHERE user_id = u.user_id) as lessons_completed
             FROM users u
-            LEFT JOIN leaderboard l ON u.user_id = l.user_id
             LEFT JOIN streaks s ON u.user_id = s.user_id
             WHERE u.user_id = ?
         `;

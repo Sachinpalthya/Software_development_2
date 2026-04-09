@@ -7,55 +7,110 @@ block content
       p Compete with the community and unlock massive rewards.
       
       .rankings-tabs
-        button.tab-btn.active Monthly Streak
-        button.tab-btn Weekly Contest
+        button.tab-btn.active(onclick="toggleLeaderboard('monthly')") Monthly Streak
+        button.tab-btn(onclick="toggleLeaderboard('weekly')") Weekly Contest
 
-    .podium-section
-      .podium-container
-        each pod in podium
-          .podium-card(class=`${pod.isGrand ? 'grand' : ''}`)
-            .podium-badge(class=pod.badgeClass)
-              i.fas(class=pod.badgeIcon)
-            .avatar-container
-              if pod.image
-                img.avatar-img(src=pod.image, alt=pod.name)
-              else
-                .avatar-img-placeholder(class=pod.badgeClass) #{pod.avatar}
-            h3.podium-name #{pod.name}
-            p.podium-xp #{pod.xp.toLocaleString()} XP
-            .podium-reward
-              span.reward-label #{pod.isGrand ? 'GRAND REWARD' : 'REWARD'}
-              span.reward-value #{pod.reward}
+    // Monthly Leaderboard
+    #monthly-board
+      .podium-section
+        .podium-container
+          each pod in monthlyPodium
+            .podium-card(class=`${pod.isGrand ? 'grand' : ''}`)
+              .podium-badge(class=pod.badgeClass)
+                i.fas(class=pod.badgeIcon)
+              .avatar-container
+                if pod.image
+                  img.avatar-img(src=pod.image, alt=pod.name)
+                else
+                  .avatar-img-placeholder(class=pod.badgeClass) #{pod.avatar}
+              h3.podium-name #{pod.name}
+              p.podium-xp #{pod.xp.toLocaleString()} Streak Days
+              .podium-reward
+                span.reward-label #{pod.isGrand ? 'GRAND REWARD' : 'REWARD'}
+                span.reward-value #{pod.reward}
 
-    .leaderboard-table
-      .table-header
-        .col-rank RANK
-        .col-user USER
-        .col-xp XP
-        .col-trend TREND
-        
-      .table-body
-        each item in list
-          .table-row(class=`${item.isCurrentUser ? 'current-user-row' : ''}`)
-            .col-rank ##{item.rank}
-            .col-user
-              .list-avatar(style=`background-color: ${item.isCurrentUser ? 'var(--primary)' : '#e2e8f0'}; color: ${item.isCurrentUser ? '#fff' : '#64748b'}`) #{item.avatar}
-              span.list-name #{item.name}
-            .col-xp
-              span(style=`${item.isCurrentUser ? 'color: var(--primary); font-weight: 700;' : 'color: var(--primary); font-weight: 700;'}`) #{item.xp.toLocaleString()}
-            .col-trend
-              if item.trend
-                span(class=`trend-${item.trend.type}`)
-                  i.fas(class=`${item.trend.type === 'up' ? 'fa-arrow-up' : 'fa-arrow-down'}`)
-                  |  #{item.trend.val}
-              else
-                span.trend-flat -
+      .leaderboard-table
+        .table-header
+          .col-rank RANK
+          .col-user USER
+          .col-xp STREAK DAYS
+          .col-trend TREND
+          
+        .table-body
+          each item in monthlyList
+            .table-row(class=`${item.isCurrentUser ? 'current-user-row' : ''}`)
+              .col-rank ##{item.rank}
+              .col-user
+                .list-avatar(style=`background-color: ${item.isCurrentUser ? 'var(--primary)' : '#e2e8f0'}; color: ${item.isCurrentUser ? '#fff' : '#64748b'}`) #{item.avatar}
+                span.list-name #{item.name}
+              .col-xp
+                span(style=`${item.isCurrentUser ? 'color: var(--primary); font-weight: 700;' : 'color: var(--primary); font-weight: 700;'}`) #{item.xp.toLocaleString()}
+              .col-trend
+                if item.trend
+                  span(class=`trend-${item.trend.type}`)
+                    i.fas(class=`${item.trend.type === 'up' ? 'fa-arrow-up' : 'fa-arrow-down'}`)
+                    |  #{item.trend.val}
+                else
+                  span.trend-flat -
+
+    // Weekly Leaderboard
+    #weekly-board(style="display: none;")
+      .podium-section
+        .podium-container
+          each pod in weeklyPodium
+            .podium-card(class=`${pod.isGrand ? 'grand' : ''}`)
+              .podium-badge(class=pod.badgeClass)
+                i.fas(class=pod.badgeIcon)
+              .avatar-container
+                if pod.image
+                  img.avatar-img(src=pod.image, alt=pod.name)
+                else
+                  .avatar-img-placeholder(class=pod.badgeClass) #{pod.avatar}
+              h3.podium-name #{pod.name}
+              p.podium-xp #{pod.xp.toLocaleString()} Points
+              .podium-reward
+                span.reward-label #{pod.isGrand ? 'GRAND REWARD' : 'REWARD'}
+                span.reward-value #{pod.reward}
+
+      .leaderboard-table
+        .table-header
+          .col-rank RANK
+          .col-user USER
+          .col-xp POINTS
+          .col-trend TREND
+          
+        .table-body
+          each item in weeklyList
+            .table-row(class=`${item.isCurrentUser ? 'current-user-row' : ''}`)
+              .col-rank ##{item.rank}
+              .col-user
+                .list-avatar(style=`background-color: ${item.isCurrentUser ? 'var(--primary)' : '#e2e8f0'}; color: ${item.isCurrentUser ? '#fff' : '#64748b'}`) #{item.avatar}
+                span.list-name #{item.name}
+              .col-xp
+                span(style=`${item.isCurrentUser ? 'color: var(--primary); font-weight: 700;' : 'color: var(--primary); font-weight: 700;'}`) #{item.xp.toLocaleString()}
+              .col-trend
+                if item.trend
+                  span(class=`trend-${item.trend.type}`)
+                    i.fas(class=`${item.trend.type === 'up' ? 'fa-arrow-up' : 'fa-arrow-down'}`)
+                    |  #{item.trend.val}
+                else
+                  span.trend-flat -
 
     .challenge-banner
       .banner-content
         h2 Want to climb faster?
-        p Double your XP for the next 24 hours by completing a daily challenge.
+        p Double your score for the next 24 hours by completing a daily challenge.
       button.btn-white.btn-challenge Start Challenge
 
     .footer-note
       p © 2024 SkillStreak Inc. All rights reserved. Ranking updates every 15 minutes.
+
+  script.
+    function toggleLeaderboard(type) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('monthly-board').style.display = 'none';
+      document.getElementById('weekly-board').style.display = 'none';
+      
+      event.target.classList.add('active');
+      document.getElementById(type + '-board').style.display = 'block';
+    }

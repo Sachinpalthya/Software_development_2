@@ -39,24 +39,25 @@ class ProfileService {
             };
         });
 
-        // Ensure fake premium design aesthetics requested by image
+        // Ensure real dynamic data from DB
         return {
             title: 'Profile | SkillStreak',
             stats: {
                 fullName: stats.full_name,
                 role: stats.role === 'student' ? 'Full-Stack Developer' : stats.role === 'mentor' ? 'Senior Mentor' : 'Administrator',
-                xp: stats.xp.toLocaleString(),
-                rank: `#${stats.rank || 114}`,
-                streak: stats.streak || 15, // defaulting to 15 to match premium image streak
-                hoursLearnt: '142h',
-                solved: '28'
+                xp: (stats.monthly_xp + stats.weekly_xp).toLocaleString(), // Combined XP
+                rank: stats.monthly_rank ? `#${stats.monthly_rank} Monthly` : (stats.weekly_rank ? `#${stats.weekly_rank} Weekly` : 'Unranked'),
+                streak: stats.streak,
+                hoursLearnt: `${Math.round(stats.lessons_completed * 1.5)}h`,
+                solved: stats.solved_count.toString(),
+                weeklyRank: stats.weekly_rank ? `#${stats.weekly_rank}` : 'N/A'
             },
             courses: processedCourses,
             milestones: [
-                { title: 'Early Bird', icon: 'fa-sun', achieved: true },
-                { title: 'Problem Solver', icon: 'fa-head-side-virus', achieved: true },
-                { title: '7-Day Warrior', icon: 'fa-shield-halved', achieved: true },
-                { title: 'Speed Demon', icon: 'fa-bolt', achieved: false },
+                { title: 'Early Bird', icon: 'fa-sun', achieved: stats.lessons_completed > 0 },
+                { title: 'Problem Solver', icon: 'fa-head-side-virus', achieved: stats.solved_count > 0 },
+                { title: '7-Day Warrior', icon: 'fa-shield-halved', achieved: stats.streak >= 7 },
+                { title: 'Speed Demon', icon: 'fa-bolt', achieved: stats.solved_count > 5 },
             ],
             nextMilestones: [
                 { title: 'Elite Coder', desc: 'Solve 2 more expert challenges', icon: 'fa-award', color: '#3b82f6' },
