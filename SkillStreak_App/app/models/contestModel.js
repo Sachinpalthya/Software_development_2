@@ -1,9 +1,52 @@
+const db = require('../../db');
+
 class ContestModel {
     static async getContestDetails() {
+        // Fetch the latest contest
+        const [contests] = await db.execute('SELECT * FROM contests ORDER BY created_at DESC LIMIT 1');
+        let latestContest = contests.length > 0 ? contests[0] : null;
+
+        // Fetch participant count and leaderboard for the latest contest
+        let participantsCount = 0;
+        let mappedLeaderboard = [];
+
+        if (latestContest) {
+            // Count participants
+            const [parts] = await db.execute('SELECT COUNT(*) as count FROM contest_participants WHERE contest_id = ?', [latestContest.contest_id]);
+            participantsCount = parts[0].count;
+
+            // Fetch top participants for this specific contest
+            const [participantsData] = await db.execute(`
+                SELECT u.full_name, cp.score, cp.submitted_at
+                FROM contest_participants cp
+                JOIN users u ON cp.user_id = u.user_id
+                WHERE cp.contest_id = ?
+                ORDER BY cp.score DESC, cp.submitted_at ASC
+                LIMIT 4
+            `, [latestContest.contest_id]);
+
+            mappedLeaderboard = participantsData.map((row, index) => ({
+                rank: index + 1,
+                name: row.full_name,
+                score: row.score,
+                time: "N/A", // We can't calculate exact duration without start time, so keep N/A
+                isTop: index === 0
+            }));
+        }
+
+        // Fill remaining places with mock if db is empty or less than 4
+        const finalLeaderboard = mappedLeaderboard.length >= 4 ? mappedLeaderboard : [
+            ...mappedLeaderboard,
+            { rank: mappedLeaderboard.length + 1, name: "AlgoWiz", score: 1820, time: "48m 05s", isTop: mappedLeaderboard.length === 0 },
+            { rank: mappedLeaderboard.length + 2, name: "CodeNinja", score: 1790, time: "52m 33s", isTop: false },
+            { rank: mappedLeaderboard.length + 3, name: "DevPro", score: 1750, time: "55m 10s", isTop: false },
+            { rank: mappedLeaderboard.length + 4, name: "ByteMaster", score: 1700, time: "58m 20s", isTop: false }
+        ].slice(0, 4);
+
         return {
-            title: "Weekly Contest #42",
-            description: "Push your limits in our premier weekly algorithm challenge. Compete against 15,000+ developers worldwide for glory and exclusive rank points.",
-            participants: "12,482",
+            title: latestContest ? latestContest.contest_title : "Weekly Contest #42",
+            description: latestContest ? latestContest.contest_description : "Push your limits in our premier weekly algorithm challenge. Compete against 15,000+ developers worldwide for glory and exclusive rank points.",
+            participants: (participantsCount || 12482).toString(),
             prizePool: "5,000 pts",
             difficulty: "Hard",
             problem: {
@@ -16,18 +59,8 @@ class ContestModel {
                 sampleInput: `3 3\n1 3 1\n1 5 1\n4 2 1`,
                 starterCode: `def solve_grid(grid):\n    n = len(grid)\n    m = len(grid[0])\n    # Initialize DP table\n    dp = [[0] * m for _ in range(n)]\n\n    # Your implementation here\n    dp[0][0] = grid[0][0]\n    \n    pass`
             },
-            weeklyLeaderboard: [
-                { rank: 1, name: "ByteMaster", score: 1850, time: "45m 12s", isTop: true },
-                { rank: 2, name: "AlgoWiz", score: 1820, time: "48m 05s", isTop: false },
-                { rank: 3, name: "CodeNinja", score: 1790, time: "52m 33s", isTop: false },
-                { rank: 4, name: "DevPro", score: 1750, time: "55m 10s", isTop: false }
-            ],
-            dailyLeaderboard: [
-                { rank: 1, name: "AlgoWiz", score: 500, time: "18m 22s", isTop: true },
-                { rank: 2, name: "CodeNinja", score: 480, time: "20m 10s", isTop: false },
-                { rank: 3, name: "DevPro", score: 450, time: "21m 45s", isTop: false },
-                { rank: 4, name: "SyntaxError", score: 400, time: "25m 00s", isTop: false }
-            ],
+            weeklyLeaderboard: finalLeaderboard,
+            dailyLeaderboard: finalLeaderboard,
             practiceArena: [
                 { title: "Weekly Contest #41", time: "Last Week", score: "1200 / 2000", maxScore: 2000, currentScore: 1200 },
                 { title: "Weekly Contest #40", time: "2 Weeks Ago", score: "2000 / 2000 (Perfect!)", maxScore: 2000, currentScore: 2000 },

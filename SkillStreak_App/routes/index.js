@@ -9,6 +9,7 @@ const lessonService = require('../app/services/lessonService');
 const profileService = require('../app/services/profileservice');
 const certificateService = require('../app/services/certificateservice');
 const enrollmentService = require('../app/services/course_enrollment_service');
+const contestService = require('../app/services/contestService');
 const leaderboardService = require('../app/services/leaderboardService');
 
 const passport = require('passport');
@@ -202,7 +203,7 @@ router.post('/enroll/:courseId', async (req, res) => {
     try {
         const userId = req.session.user.user_id || req.session.user.id || 1;
         await enrollmentService.enrollInCourse(userId, req.params.courseId);
-        res.redirect('/enrollments');
+        res.redirect('/profile');
     } catch (error) {
         console.error("Error enrolling in course:", error);
         res.redirect('/course?error=enrollment');
