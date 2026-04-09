@@ -268,3 +268,50 @@ footer {
   font-weight: 500;
   transition: all 0.2s;
 }
+
+/* Contest Page Styles */
+.contest-grid { display: grid; grid-template-columns: 1fr 340px; gap: 32px; }
+.contest-header { margin-bottom: 24px; }
+.pulse-dot { width: 8px; height: 8px; background-color: var(--primary); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(242, 98, 46, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(242, 98, 46, 0); } 100% { box-shadow: 0 0 0 0 rgba(242, 98, 46, 0); } }
+.stat-card { background: white; padding: 16px 24px; border-radius: var(--border-radius-sm); border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); flex: 1; }
+.problem-card { background: white; border-radius: var(--border-radius-md); border: 1px solid var(--gray-200); padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+.editor-container { background: #1e293b; border-radius: var(--border-radius-md); overflow: hidden; box-shadow: var(--shadow-md); }
+.editor-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #0f172a; border-bottom: 1px solid #334155; }
+.editor-tabs { display: flex; align-items: center; gap: 20px; }
+.active-tab { color: white; font-size: 13px; font-weight: 600; }
+.autosave { color: #64748b; font-size: 12px; font-style: italic; }
+.editor-footer { display: flex; justify-content: flex-end; gap: 16px; padding: 16px 20px; background: #0f172a; border-top: 1px solid #334155; }
+.rapid-warning { display: flex; align-items: center; gap: 16px; background: #0f172a; margin-top: 24px; padding: 24px; border-radius: var(--border-radius-md); border-left: 4px solid var(--primary); position: relative; overflow: hidden; }
+.warning-icon { background: rgba(242, 98, 46, 0.2); color: var(--primary); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; }
+.multithread-badge { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; padding: 8px 16px; border-radius: 100px; font-size: 12px; display: flex; gap: 8px; align-items: center; margin-left: auto; z-index:2; }
+.rapid-warning::after { content: "⏱️"; position: absolute; right: -20px; font-size: 120px; opacity: 0.03; z-index:1; }
+.timer-card { background: var(--primary); color: white; border-radius: var(--border-radius-md); padding: 32px; text-align: center; box-shadow: 0 10px 25px rgba(242, 98, 46, 0.3); margin-bottom: 24px; }
+.timer-title { font-weight: 700; margin: 16px 0 24px; font-size: 18px; }
+.timer-display { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.time-box .digits { font-size: 42px; font-weight: 800; line-height: 1; }
+.time-box .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; opacity: 0.8; }
+.time-sep { font-size: 32px; font-weight: 700; opacity: 0.5; margin-bottom: 12px; }
+.btn-white { background: white; color: var(--primary); border-radius: var(--border-radius-sm); padding: 12px 24px; border:none; cursor:pointer;}
+.btn-white:hover { background: var(--bg-color); transform: translateY(-2px); }
+.scoreboard-card, .practice-card { background: white; border-radius: var(--border-radius-md); border: 1px solid var(--gray-200); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+.scoreboard-header, .practice-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.top-badge { color: var(--primary); font-size: 10px; font-weight: 700; letter-spacing: 1px; }
+.btn-tab { flex: 1; padding: 8px 0; text-align: center; background: var(--gray-100); border: none; font-size: 13px; font-weight: 600; color: var(--text-muted); border-radius: 6px; cursor: pointer; }
+.btn-tab.active { background: var(--primary); color: white; }
+.leaderboard-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--gray-100); }
+.leaderboard-item.top-item { background: #fff8f5; margin: 0 -24px; padding: 12px 24px; border-bottom: none; }
+.leaderboard-item .rank { width: 30px; font-weight: 700; color: var(--text-muted); }
+.leaderboard-item .user-info { display: flex; align-items: center; gap: 12px; flex: 1; }
+.leaderboard-item .name { font-size: 14px; font-weight: 600; }
+.leaderboard-item .score-meta { font-size: 11px; color: var(--text-muted); }
+.leaderboard-item .trophy { margin-left: auto; }
+.view-full { display: block; text-align: center; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 16px; }
+.view-full:hover { color: var(--text-dark); }
+.practice-item { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--gray-100); }
+.p-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.p-title { font-size: 13px; font-weight: 600; }
+.p-time { font-size: 11px; color: var(--text-muted); }
+.p-bar-bg { height: 6px; background: var(--gray-200); border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+.p-bar-fill { height: 100%; }
+.p-score { font-size: 11px; color: var(--text-muted); }
