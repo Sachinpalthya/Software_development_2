@@ -1,0 +1,172 @@
+extends layout
+
+block content
+  .container(style="padding: 40px 0;")
+    .contest-grid
+      // Main Column
+      .contest-main
+        // Header Section
+        .contest-header
+          .live-badge(style="display: inline-flex; align-items: center; gap: 6px; background: #ffe4d6; color: var(--primary); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 16px;")
+            .pulse-dot
+            | Live Now
+            
+          h1(style="font-size: 42px; color: var(--text-dark); margin-bottom: 12px;")= contestDetails.title
+          p(style="color: var(--text-muted); font-size: 16px; margin-bottom: 32px;")= contestDetails.description
+          
+          .stats-cards(style="display: flex; gap: 16px; margin-bottom: 40px;")
+            .stat-card
+              .stat-label(style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;") Participants
+              .stat-value(style="font-size: 20px; font-weight: 700;")= contestDetails.participants
+            .stat-card
+              .stat-label(style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;") Prize Pool
+              .stat-value(style="font-size: 20px; font-weight: 700;")= contestDetails.prizePool
+            .stat-card
+              .stat-label(style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;") Difficulty
+              .stat-value(style="font-size: 20px; font-weight: 700;")= contestDetails.difficulty
+
+        // Problem Description
+        .problem-card
+          .problem-header(style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gray-200); padding-bottom: 16px; margin-bottom: 24px;")
+            div(style="display: flex; align-items: center; gap: 12px;")
+              span.badge(style="background: #ffe4d6; color: var(--primary); padding: 6px 10px; border-radius: 6px; font-weight: 700; font-size: 14px;")= contestDetails.problem.id
+              h2(style="font-size: 20px; margin: 0;")= contestDetails.problem.title
+            div(style="display: flex; gap: 16px; font-size: 13px; color: var(--text-muted);")
+              span Points: #{contestDetails.problem.points}
+              span Time Limit: #{contestDetails.problem.timeLimit}
+              
+          .problem-body
+            p !{contestDetails.problem.description}
+            
+            h3(style="font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin: 24px 0 8px;") Input Format
+            p= contestDetails.problem.inputFormat
+            
+            .code-sample(style="background: #f8fafc; border: 1px solid var(--gray-200); border-radius: 8px; padding: 16px; font-family: monospace; font-size: 14px; margin-top: 16px; white-space: pre-line;")
+              | #{contestDetails.problem.sampleInput}
+
+        // Editor Region
+        .editor-container
+          .editor-header
+            .editor-tabs
+              .active-tab Python 3.10
+              .autosave Autosaved at 14:22
+            .editor-actions(style="color: #94a3b8; display: flex; gap: 16px;")
+              i.fas.fa-cog
+              i.fas.fa-expand
+              
+          .editor-body(style="display: flex; padding: 20px; font-family: monospace; font-size: 14px;")
+            .line-numbers(style="color: #475569; padding-right: 16px; text-align: right; user-select: none;")
+              | 1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+            .code-area(style="color: #f8fafc; white-space: pre;")
+              span(style="color: #f2622e;") def
+              |  <span style="color: #60a5fa;">solve_grid</span>(grid):
+              |     n = <span style="color: #c084fc;">len</span>(grid)
+              |     m = <span style="color: #c084fc;">len</span>(grid[0])
+              |     <span style="color: #64748b;"># Initialize DP table</span>
+              |     dp = [[<span style="color: #fbbf24;">0</span>] * m <span style="color: #f2622e;">for</span> _ <span style="color: #f2622e;">in</span> <span style="color: #c084fc;">range</span>(n)]
+              | 
+              |     <span style="color: #64748b;"># Your implementation here</span>
+              |     dp[<span style="color: #fbbf24;">0</span>][<span style="color: #fbbf24;">0</span>] = grid[<span style="color: #fbbf24;">0</span>][<span style="color: #fbbf24;">0</span>]
+              |     
+              |     <span style="color: #f2622e;">pass</span>
+              
+          .editor-footer
+            button.btn.btn-outline(style="border-color: #475569; color: white;") Run Code
+            button.btn.btn-primary Submit
+            
+        // Rapid Resolution Warning
+        .rapid-warning
+          .warning-icon
+            i.fas.fa-exclamation-triangle
+          .warning-text
+            strong(style="display: block; font-size: 14px; margin-bottom: 4px; color: white;") RAPID RESOLUTION WARNING
+            span(style="font-size: 12px; color: #94a3b8;") Contestants are penalized for late submissions. Every minute counts towards your final global ranking multiplier. Speed and accuracy are equally vital.
+          .multithread-badge
+            i.fas.fa-bolt(style="color: var(--primary);")
+            | Multi-threaded Submissions Enabled
+
+      // Sidebar Column
+      .contest-sidebar
+        // Timer Card
+        .timer-card
+          .timer-icon
+            i.far.fa-clock(style="font-size: 24px;")
+          .timer-title Contest Ends In
+          .timer-display
+            .time-box
+              .digits 01
+              .label HOURS
+            .time-sep :
+            .time-box
+              .digits 42
+              .label MINS
+            .time-sep :
+            .time-box
+              .digits 18
+              .label SECS
+          button.btn.btn-white(style="width: 100%; margin-top: 24px; color: var(--primary); font-weight: 700;") Resume Solving
+
+        // Scoreboard
+        .scoreboard-card
+          .scoreboard-header
+            h3(style="font-size: 16px;") Live Scoreboard
+            .top-badge #[i.fas.fa-bolt(style="color: var(--primary); margin-right: 4px;")] TOP 100
+            
+          .scoreboard-tabs(style="display: flex; gap: 8px; margin: 16px 0;")
+            button.btn-tab.active(onclick="toggleBoard('weekly')") Weekly
+            button.btn-tab(onclick="toggleBoard('daily')") Daily
+            
+          .leaderboard-list#weeklyBoard
+            each item in contestDetails.weeklyLeaderboard
+              .leaderboard-item(class=item.isTop ? "top-item" : "")
+                .rank= item.rank + '.'
+                .user-info
+                  .avatar
+                    img(src=`https://ui-avatars.com/api/?name=${item.name}&background=e2e8f0&color=475569`, alt=item.name, style="width: 24px; border-radius: 50%;")
+                  div
+                    .name= item.name
+                    .score-meta Score: #{item.score} | #{item.time}
+                if item.isTop
+                  .trophy #[i.fas.fa-trophy(style="color: var(--primary);")]
+
+          .leaderboard-list#dailyBoard(style="display: none;")
+            each item in contestDetails.dailyLeaderboard
+              .leaderboard-item(class=item.isTop ? "top-item" : "")
+                .rank= item.rank + '.'
+                .user-info
+                  .avatar
+                    img(src=`https://ui-avatars.com/api/?name=${item.name}&background=e2e8f0&color=475569`, alt=item.name, style="width: 24px; border-radius: 50%;")
+                  div
+                    .name= item.name
+                    .score-meta Score: #{item.score} | #{item.time}
+                if item.isTop
+                  .trophy #[i.fas.fa-trophy(style="color: var(--primary);")]
+                    
+          a.view-full(href="#") View Full Leaderboard
+
+        // Practice Arena
+        .practice-card
+          .practice-header
+            h3(style="font-size: 16px;") #[i.fas.fa-history(style="color: var(--primary); margin-right: 8px;")] Practice Arena
+          
+          each practice in contestDetails.practiceArena
+            .practice-item
+              .p-header
+                .p-title= practice.title
+                .p-time= practice.time
+              .p-bar-bg
+                if practice.maxScore > 0 && practice.currentScore > 0
+                  .p-bar-fill(style=`width: ${(practice.currentScore/practice.maxScore)*100}%; background: ${practice.currentScore === practice.maxScore ? '#22c55e' : 'var(--primary)'};`)
+              .p-score= `Your Score: ${practice.score}`
+              
+          button.btn.btn-outline(style="width: 100%; margin-top: 16px; background: #f8fafc; border:none;") Browse Archives
+
+  script.
+    function toggleBoard(type) {
+      document.querySelectorAll('.btn-tab').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('weeklyBoard').style.display = 'none';
+      document.getElementById('dailyBoard').style.display = 'none';
+      
+      event.target.classList.add('active');
+      document.getElementById(type + 'Board').style.display = 'block';
+    }

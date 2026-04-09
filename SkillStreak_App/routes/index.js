@@ -8,6 +8,7 @@ const courseService = require('../app/services/courseService');
 const lessonService = require('../app/services/lessonService');
 const profileService = require('../app/services/profileservice');
 const certificateService = require('../app/services/certificateservice');
+const enrollmentService = require('../app/services/course_enrollment_service');
 
 const passport = require('passport');
 
@@ -30,6 +31,17 @@ router.get('/auth/google/callback',
 router.get('/', (req, res) => {
     const data = indexService.getIndexData();
     res.render('index', data);
+});
+
+// Contest Page
+router.get('/contest', async (req, res) => {
+    try {
+        const data = await contestService.getContestData();
+        res.render('contest', data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error loading contest page');
+    }
 });
 
 // Registration Page (Frontend)
@@ -148,6 +160,36 @@ router.get('/certificates', async (req, res) => {
     } catch (error) {
         console.error("Error generating certificates gallery:", error);
         res.status(500).send('Server Error');
+    }
+});
+
+// Enrollments Page
+router.get('/enrollments', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        const data = await enrollmentService.getEnrollmentData(userId);
+        res.render('course_enrollement', data);
+    } catch (error) {
+        console.error("Error generating enrollments:", error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Enroll in a Course route
+router.post('/enroll/:courseId', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id || 1;
+        await enrollmentService.enrollInCourse(userId, req.params.courseId);
+        res.redirect('/enrollments');
+    } catch (error) {
+        console.error("Error enrolling in course:", error);
+        res.redirect('/course?error=enrollment');
     }
 });
 

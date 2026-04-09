@@ -20,7 +20,7 @@ html(lang="en")
             a(href="/profile", class=(title && title.includes("Profile") ? "active" : "")) Profile
             a(href="/certificates", class=(title && title.includes("Certificate") ? "active" : "")) Certificates
             a(href="#") Leaderboard
-            a(href="#") Contests
+            a(href="/contest", class=(title && title.includes("Contest") ? "active" : "")) Contests
             
           .navbar-actions
             .search-bar
@@ -57,7 +57,7 @@ html(lang="en")
             ul
               li: a(href="/course") Course course
               li: a(href="#") Leaderboard
-              li: a(href="#") Coding Contests
+              li: a(href="/contest") Coding Contests
               li: a(href="#") Pricing
           .footer-links
             h4 Company
