@@ -80,7 +80,8 @@ CREATE TABLE contest_participants (
 CREATE TABLE leaderboard (
     leaderboard_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    total_score INT DEFAULT 0,
+    leaderboard_type ENUM('monthly_streak', 'weekly_contest') NOT NULL,
+    score INT DEFAULT 0,
     rank_position INT,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
@@ -143,6 +144,12 @@ INSERT INTO courses (course_id, course_title, course_description, course_level, 
 (3, 'JavaScript Programming', 'Introduction to JavaScript programming', 'intermediate', 3),
 (4, 'Node.js Backend', 'Learn backend development using Node.js', 'intermediate', 3),
 (5, 'Full Stack Development', 'Build complete web applications', 'advanced', 3);
+(6, 'Business Strategy Basics', 'Learn how to build and grow a business strategically', 'basic', 3),
+(7, 'Graphic Design Fundamentals', 'Introduction to design principles and tools', 'basic', 3),
+(8, 'Personal Finance Management', 'Learn how to manage money, savings, and investments', 'basic', 3),
+(9, 'Project Management Essentials', 'Understand project planning and execution', 'intermediate', 3),
+(10, 'Digital Marketing', 'Learn marketing strategies for online platforms', 'intermediate', 3);
+
 
 INSERT INTO lessons (lesson_id, course_id, lesson_title, lesson_content, lesson_order) VALUES
 (1, 1, 'Introduction to HTML', 'Learn what HTML is and how it works', 1),
@@ -150,6 +157,25 @@ INSERT INTO lessons (lesson_id, course_id, lesson_title, lesson_content, lesson_
 (3, 2, 'CSS Basics', 'Introduction to CSS styling', 1),
 (4, 3, 'JavaScript Variables', 'Learn variables in JavaScript', 1),
 (5, 4, 'Node.js Setup', 'How to install and run Node.js', 1);
+-- Business Strategy (Course 6)
+(6, 6, 'What is Business Strategy', 'Introduction to business planning and strategy', 1),
+(7, 6, 'Market Analysis', 'Learn how to analyze your market and competitors', 2),
+
+-- Graphic Design (Course 7)
+(8, 7, 'Design Principles', 'Understanding color, typography, and layout', 1),
+(9, 7, 'Introduction to Tools', 'Overview of tools like Photoshop and Illustrator', 2),
+
+-- Finance (Course 8)
+(10, 8, 'Budgeting Basics', 'How to create and manage a budget', 1),
+(11, 8, 'Saving and Investing', 'Introduction to saving strategies and investments', 2),
+
+-- Project Management (Course 9)
+(12, 9, 'Project Planning', 'Learn how to plan a project effectively', 1),
+(13, 9, 'Risk Management', 'Identify and manage project risks', 2),
+
+-- Digital Marketing (Course 10)
+(14, 10, 'SEO Basics', 'Introduction to search engine optimization', 1),
+(15, 10, 'Social Media Marketing', 'Using social platforms for business growth', 2);
 
 INSERT INTO enrollments (enrollment_id, user_id, course_id) VALUES
 (1, 1, 1),
@@ -179,11 +205,17 @@ INSERT INTO contest_participants (participation_id, contest_id, user_id, score) 
 (4, 3, 3, 88),
 (5, 4, 4, 95);
 
-INSERT INTO leaderboard (leaderboard_id, user_id, total_score) VALUES
-(1, 1, 163),
-(2, 2, 92),
-(3, 3, 88),
-(4, 4, 95);
+INSERT INTO leaderboard (leaderboard_id, user_id, leaderboard_type, score, rank_position) VALUES
+(1, 1, 'monthly_streak', 28, 1),
+(2, 2, 'monthly_streak', 25, 2),
+(3, 3, 'monthly_streak', 20, 3),
+(4, 4, 'monthly_streak', 14, 4),
+(5, 5, 'monthly_streak', 10, 5),
+(6, 1, 'weekly_contest', 1850, 1),
+(7, 2, 'weekly_contest', 1820, 2),
+(8, 3, 'weekly_contest', 1790, 3),
+(9, 4, 'weekly_contest', 1750, 4),
+(10, 5, 'weekly_contest', 1600, 5);
 
 INSERT INTO jobs (job_id, job_title, company_name, job_link, related_course) VALUES
 (1, 'Frontend Developer', 'Tech Solutions Inc.', 'https://example.com/job1', 1),
