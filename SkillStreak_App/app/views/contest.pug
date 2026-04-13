@@ -94,15 +94,15 @@ block content
           .timer-title Contest Ends In
           .timer-display
             .time-box
-              .digits 01
+              .digits#hours-val 01
               .label HOURS
             .time-sep :
             .time-box
-              .digits 42
+              .digits#mins-val 42
               .label MINS
             .time-sep :
             .time-box
-              .digits 18
+              .digits#secs-val 18
               .label SECS
           button.btn.btn-white(style="width: 100%; margin-top: 24px; color: var(--primary); font-weight: 700;") Resume Solving
 
@@ -170,3 +170,35 @@ block content
       event.target.classList.add('active');
       document.getElementById(type + 'Board').style.display = 'block';
     }
+
+    // Timer Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const hoursEl = document.getElementById('hours-val');
+      const minsEl = document.getElementById('mins-val');
+      const secsEl = document.getElementById('secs-val');
+      
+      if (!hoursEl || !minsEl || !secsEl) return;
+      
+      let hours = parseInt(hoursEl.innerText, 10);
+      let mins = parseInt(minsEl.innerText, 10);
+      let secs = parseInt(secsEl.innerText, 10);
+      
+      let totalSeconds = (hours * 3600) + (mins * 60) + secs;
+      
+      const timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+          clearInterval(timerInterval);
+          return;
+        }
+        
+        totalSeconds--;
+        
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+        
+        hoursEl.innerText = h.toString().padStart(2, '0');
+        minsEl.innerText = m.toString().padStart(2, '0');
+        secsEl.innerText = s.toString().padStart(2, '0');
+      }, 1000);
+    });
