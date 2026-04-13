@@ -356,7 +356,12 @@ block content
   .container
     .profile-header
       .profile-avatar
-        img(src="https://api.dicebear.com/7.x/notionists/svg?seed=" + stats.fullName + "&backgroundColor=b6e3f4", alt="Profile")
+        if stats.gender === 'female'
+          img(src="https://avatar.iran.liara.run/public/girl?username=" + stats.fullName, alt="Profile")
+        else if stats.gender === 'male'
+          img(src="https://avatar.iran.liara.run/public/boy?username=" + stats.fullName, alt="Profile")
+        else
+          img(src="https://avatar.iran.liara.run/public?username=" + stats.fullName, alt="Profile")
       .profile-info
         .badges-row
           span.badge-premium PRO MEMBER

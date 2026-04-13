@@ -3,7 +3,7 @@ const db = require('../../db');
 class ProfileModel {
     static async getUserStats(userId) {
         const query = `
-            SELECT u.full_name, u.role, 
+            SELECT u.full_name, u.role, u.gender, 
                    IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 0) as monthly_xp, 
                    IFNULL((SELECT rank_position FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 114) as monthly_rank,
                    IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'weekly_contest' LIMIT 1), 0) as weekly_xp, 
