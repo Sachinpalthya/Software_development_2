@@ -46,6 +46,23 @@ router.get('/contest', async (req, res) => {
     }
 });
 
+// Submit Contest Result
+router.post('/contest/submit', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ success: false, message: 'Authentication required' });
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id;
+        const { contestId } = req.body;
+        
+        await contestService.submitContest(userId, contestId);
+        res.json({ success: true, message: 'Solution submitted successfully!' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Server error during submission' });
+    }
+});
+
 // Registration Page (Frontend)
 router.get('/register', (req, res) => {
     res.render('register', { title: 'Create Account | SkillStreak', showNavbar: false, showFooter: false });

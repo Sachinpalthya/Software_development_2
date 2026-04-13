@@ -45,7 +45,7 @@ block content
               | #{contestDetails.problem.sampleInput}
 
         // Editor Region
-        .editor-container
+        .editor-container#editor-section
           .editor-header
             .editor-tabs
               .active-tab Python 3.10
@@ -71,8 +71,14 @@ block content
               |     <span style="color: #f2622e;">pass</span>
               
           .editor-footer
-            button.btn.btn-outline(style="border-color: #475569; color: white;") Run Code
-            button.btn.btn-primary Submit
+            button.btn.btn-outline#run-btn(style="border-color: #475569; color: white;") Run Code
+            button.btn.btn-primary#submit-btn Submit
+            
+          // Results Panel (Initially hidden)
+          .results-panel#results-panel(style="display: none; margin-top: 20px; border-top: 1px solid #475569; padding-top: 20px;")
+            h4(style="font-size: 14px; color: #94a3b8; margin-bottom: 12px;") Console Output
+            .console-output#console-output(style="background: #0f172a; color: #10b981; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 13px; min-height: 60px;")
+              | > Executing solution...
             
         // Rapid Resolution Warning
         .rapid-warning
@@ -104,7 +110,7 @@ block content
             .time-box
               .digits#secs-val 18
               .label SECS
-          button.btn.btn-white(style="width: 100%; margin-top: 24px; color: var(--primary); font-weight: 700;") Resume Solving
+          button.btn.btn-white#resume-btn(style="width: 100%; margin-top: 24px; color: var(--primary); font-weight: 700;") Resume Solving
 
         // Scoreboard
         .scoreboard-card
@@ -201,4 +207,72 @@ block content
         minsEl.innerText = m.toString().padStart(2, '0');
         secsEl.innerText = s.toString().padStart(2, '0');
       }, 1000);
+
+      // Resume Solving Scroll
+      const resumeBtn = document.getElementById('resume-btn');
+      if (resumeBtn) {
+        resumeBtn.addEventListener('click', () => {
+          document.getElementById('editor-section').scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+
+      // Run Code Mock Logic
+      const runBtn = document.getElementById('run-btn');
+      const resultsPanel = document.getElementById('results-panel');
+      const consoleOutput = document.getElementById('console-output');
+
+      if (runBtn) {
+        runBtn.addEventListener('click', () => {
+          resultsPanel.style.display = 'block';
+          consoleOutput.innerHTML = '<span style="color: #94a3b8;">> Running sample test cases...</span>';
+          
+          setTimeout(() => {
+            consoleOutput.innerHTML = `
+              <span style="color: #10b981;">> Test Case 1 Passed!</span><br>
+              <span style="color: #10b981;">> Test Case 2 Passed!</span><br><br>
+              <span style="color: #fbbf24;">All sample test cases passed successfully.</span>
+            `;
+          }, 1500);
+        });
+      }
+
+      // Submit Logic
+      const submitBtn = document.getElementById('submit-btn');
+      if (submitBtn) {
+        submitBtn.addEventListener('click', async () => {
+          const contestId = !{JSON.stringify(contestDetails.contest_id)};
+          resultsPanel.style.display = 'block';
+          consoleOutput.innerHTML = '<span style="color: #94a3b8;">> Submitting to global server...</span>';
+          
+          try {
+            const response = await fetch('/contest/submit', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ contestId })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              consoleOutput.innerHTML = `
+                <span style="color: #10b981;">> Final Ranking Multiplier: 1.2x</span><br>
+                <span style="color: #10b981;">> Score updated: 500 Pts</span><br><br>
+                <span style="color: #f8fafc;">${result.message}</span>
+              `;
+              
+              // Optional: Redirect after success
+              setTimeout(() => {
+                alert('Congratulations! Your submission has been recorded.');
+                window.location.href = '/leaderboard';
+              }, 2000);
+            } else {
+              consoleOutput.innerHTML = `<span style="color: #ef4444;">> Error: ${result.message}</span>`;
+            }
+          } catch (error) {
+            consoleOutput.innerHTML = `<span style="color: #ef4444;">> Connection Error. Please try again.</span>`;
+          }
+        });
+      }
     });
