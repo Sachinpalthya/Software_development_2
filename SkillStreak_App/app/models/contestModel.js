@@ -44,6 +44,7 @@ class ContestModel {
         ].slice(0, 4);
 
         return {
+            contest_id: latestContest ? latestContest.contest_id : 1,
             title: latestContest ? latestContest.contest_title : "Weekly Contest #42",
             description: latestContest ? latestContest.contest_description : "Push your limits in our premier weekly algorithm challenge. Compete against 15,000+ developers worldwide for glory and exclusive rank points.",
             participants: (participantsCount || 12482).toString(),
@@ -67,6 +68,23 @@ class ContestModel {
                 { title: "Strings & Arrays Special", time: "Special", score: "Not attempted yet", maxScore: 2000, currentScore: 0 }
             ]
         };
+    }
+
+    static async saveSubmission(userId, contestId, score) {
+        // Check if user already participated in this contest
+        const [existing] = await db.execute('SELECT * FROM contest_participants WHERE user_id = ? AND contest_id = ?', [userId, contestId]);
+        
+        if (existing.length > 0) {
+            // Update score if historical score is lower
+            if (score > existing[0].score) {
+                await db.execute('UPDATE contest_participants SET score = ?, submitted_at = NOW() WHERE participation_id = ?', [score, existing[0].participation_id]);
+            }
+            return { participation_id: existing[0].participation_id };
+        } else {
+            // Insert new participation record
+            const [result] = await db.execute('INSERT INTO contest_participants (contest_id, user_id, score) VALUES (?, ?, ?)', [contestId, userId, score]);
+            return { participation_id: result.insertId };
+        }
     }
 }
 

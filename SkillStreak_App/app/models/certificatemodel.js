@@ -10,7 +10,8 @@ class CertificateModel {
                    auth_id as authId, 
                    image_url as image, 
                    tag_name as tag, 
-                   tag_color as tagColor
+                   tag_color as tagColor,
+                   category
             FROM certificates 
             WHERE user_id = ?
             ORDER BY issue_date DESC
