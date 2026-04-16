@@ -4,10 +4,18 @@ const bcrypt = require('bcryptjs');
 const loginModel = require('../models/loginModel');
 const registerModel = require('../models/registerModel');
 
+const googleClientID = process.env.GOOGLE_CLIENT_ID;
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET;
+const googleCallbackURL = process.env.GOOGLE_CALLBACK_URL || "/auth/google/callback";
+
+if (!googleClientID || !googleClientSecret || googleClientID === 'your_google_client_id' || googleClientSecret === 'your_google_client_secret') {
+    throw new Error('Google OAuth credentials are missing or invalid. Set GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in .env.');
+}
+
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID || 'dummy_client_id',
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'dummy_client_secret',
-    callbackURL: "/auth/google/callback"
+    clientID: googleClientID,
+    clientSecret: googleClientSecret,
+    callbackURL: googleCallbackURL
   },
   async function(accessToken, refreshToken, profile, cb) {
     try {
