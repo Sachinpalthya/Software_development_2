@@ -45,6 +45,8 @@ class ProfileService {
             stats: {
                 fullName: stats.full_name,
                 gender: stats.gender,
+                bio: stats.bio,
+                profilePhoto: stats.profile_photo,
                 role: stats.role === 'student' ? 'Full-Stack Developer' : stats.role === 'mentor' ? 'Senior Mentor' : 'Administrator',
                 xp: (stats.monthly_xp + stats.weekly_xp).toLocaleString(), // Combined XP
                 rank: stats.monthly_rank ? `#${stats.monthly_rank} Monthly` : (stats.weekly_rank ? `#${stats.weekly_rank} Weekly` : 'Unranked'),
@@ -69,6 +71,10 @@ class ProfileService {
                 hoursAway: 2.5
             }
         };
+    }
+
+    static async updateProfile(userId, profileData) {
+        await ProfileModel.updateUserProfile(userId, profileData);
     }
 }
 

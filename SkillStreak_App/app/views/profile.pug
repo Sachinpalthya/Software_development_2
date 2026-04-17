@@ -356,12 +356,10 @@ block content
   .container
     .profile-header
       .profile-avatar
-        if stats.gender === 'female'
-          img(src="https://avatar.iran.liara.run/public/girl?username=" + stats.fullName, alt="Profile")
-        else if stats.gender === 'male'
-          img(src="https://avatar.iran.liara.run/public/boy?username=" + stats.fullName, alt="Profile")
+        if stats.profilePhoto
+          img(src=stats.profilePhoto, alt="Profile")
         else
-          img(src="https://avatar.iran.liara.run/public?username=" + stats.fullName, alt="Profile")
+          img(src="https://ui-avatars.com/api/?name=" + encodeURIComponent(stats.fullName) + "&background=random&color=fff&size=150", alt="Profile")
       .profile-info
         .badges-row
           span.badge-premium PRO MEMBER
@@ -369,8 +367,10 @@ block content
             i.fas.fa-fire
             | #{stats.streak} Day Streak
         h1= stats.fullName
-        p= stats.role
-      a.edit-btn(href="#")
+        p(style="color: var(--primary); font-weight: 600;")= stats.role
+        if stats.bio
+          p(style="margin-top: 10px; font-size: 15px; max-width: 600px; line-height: 1.5; color: #cbd5e1;")= stats.bio
+      a.edit-btn(href="/profile/edit")
         i.fas.fa-pen
         | Edit Profile
 
