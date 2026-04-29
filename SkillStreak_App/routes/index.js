@@ -13,6 +13,20 @@ const contestService = require('../app/services/contestService');
 const leaderboardService = require('../app/services/leaderboardService');
 
 const passport = require('passport');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// Multer Config
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../static/uploads/'));
+    },
+    filename: function (req, file, cb) {
+        cb(null, 'profile-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage: storage });
 
 // Google Authentication Route
 router.get('/auth/google',
@@ -168,6 +182,65 @@ router.get('/profile', async (req, res) => {
     } catch (error) {
         console.error("Error generating profile:", error);
         res.status(500).send('Server Error');
+    }
+});
+
+// Edit Profile Page GET
+router.get('/profile/edit', async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id;
+        const data = await profileService.getProfileData(userId);
+        res.render('edit_profile', data);
+    } catch (error) {
+        console.error("Error rendering edit profile:", error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// Edit Profile Page POST
+router.post('/profile/edit', upload.single('profile_photo'), async (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login');
+    }
+    try {
+        const userId = req.session.user.user_id || req.session.user.id;
+        const { fullName, gender, bio } = req.body;
+        const profileData = { fullName, gender, bio };
+        
+        // Fetch current user data to see if we need to delete an old photo
+        const currentUserData = await profileService.getProfileData(userId);
+        const oldPhotoPath = currentUserData.stats.profilePhoto;
+        
+        if (req.file) {
+            profileData.profilePhoto = '/uploads/' + req.file.filename;
+            
+            // User uploaded a new photo, delete the old one to save space
+            if (oldPhotoPath && oldPhotoPath.startsWith('/uploads/')) {
+                const fullPath = path.join(__dirname, '../static', oldPhotoPath);
+                if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+            }
+        } else if (req.body.remove_photo === 'true') {
+            profileData.profilePhoto = null;
+            
+            // User opted to explicitly remove photo
+            if (oldPhotoPath && oldPhotoPath.startsWith('/uploads/')) {
+                const fullPath = path.join(__dirname, '../static', oldPhotoPath);
+                if (fs.existsSync(fullPath)) fs.unlinkSync(fullPath);
+            }
+        }
+
+        await profileService.updateProfile(userId, profileData);
+        // Update session user name just in case
+        if (req.session.user.full_name) {
+            req.session.user.full_name = fullName;
+        }
+        res.redirect('/profile');
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        res.redirect('/profile/edit?error=1');
     }
 });
 

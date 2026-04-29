@@ -3,7 +3,7 @@ const db = require('../../db');
 class ProfileModel {
     static async getUserStats(userId) {
         const query = `
-            SELECT u.full_name, u.role, 
+            SELECT u.full_name, u.role, u.profile_photo, u.gender, u.bio,
                    IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 0) as monthly_xp, 
                    IFNULL((SELECT rank_position FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'monthly_streak' LIMIT 1), 114) as monthly_rank,
                    IFNULL((SELECT score FROM leaderboard WHERE user_id = u.user_id AND leaderboard_type = 'weekly_contest' LIMIT 1), 0) as weekly_xp, 
@@ -17,6 +17,21 @@ class ProfileModel {
         `;
         const [rows] = await db.query(query, [userId]);
         return rows[0];
+    }
+
+    static async updateUserProfile(userId, { fullName, gender, bio, profilePhoto }) {
+        let query = 'UPDATE users SET full_name = ?, gender = ?, bio = ?';
+        let params = [fullName, gender, bio];
+
+        if (profilePhoto !== undefined) {
+            query += ', profile_photo = ?';
+            params.push(profilePhoto);
+        }
+
+        query += ' WHERE user_id = ?';
+        params.push(userId);
+
+        await db.query(query, params);
     }
 
     static async getEnrolledCourses(userId) {
