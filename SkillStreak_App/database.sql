@@ -9,6 +9,7 @@ CREATE TABLE users (
     email VARCHAR(120) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('student','mentor','admin') DEFAULT 'student',
+    gender VARCHAR(20) DEFAULT 'other',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -18,6 +19,8 @@ CREATE TABLE courses (
     course_title VARCHAR(150) NOT NULL,
     course_description TEXT,
     course_level ENUM('basic','intermediate','advanced'),
+    category VARCHAR(50) DEFAULT 'Technical',
+    video_url VARCHAR(255),
     created_by INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (created_by) REFERENCES users(user_id) ON DELETE SET NULL
@@ -29,6 +32,7 @@ CREATE TABLE lessons (
     course_id INT NOT NULL,
     lesson_title VARCHAR(150) NOT NULL,
     lesson_content TEXT,
+    video_url VARCHAR(255),
     lesson_order INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE
@@ -142,42 +146,63 @@ CREATE TABLE certificates (
 
 -- USERS
 INSERT INTO users VALUES
-(1, 'karthik', 'karthik@gmail.com', 'hashedpass1', 'student', NOW()),
-(2, 'Sneha Reddy', 'sneha@gmail.com', 'hashedpass2', 'student', NOW()),
-(3, 'praveen', 'praveen@gmail.com', 'hashedpass3', 'mentor', NOW()),
-(4, 'akash', 'akash@gmail.com', 'hashedpass4', 'student', NOW()),
-(5, 'Admin User', 'admin@gmail.com', 'hashedpass5', 'admin', NOW());
+(1, 'karthik', 'karthik@gmail.com', 'hashedpass1', 'student', 'male', NOW()),
+(2, 'Sneha Reddy', 'sneha@gmail.com', 'hashedpass2', 'student', 'female', NOW()),
+(3, 'praveen', 'praveen@gmail.com', 'hashedpass3', 'mentor', 'male', NOW()),
+(4, 'akash', 'akash@gmail.com', 'hashedpass4', 'student', 'male', NOW()),
+(5, 'Admin User', 'admin@gmail.com', 'hashedpass5', 'admin', 'other', NOW());
 
 -- COURSES
 INSERT INTO courses VALUES
-(1,'HTML Fundamentals','Learn the basics of HTML','basic',3,NOW()),
-(2,'CSS Styling','Learn CSS','basic',3,NOW()),
-(3,'JavaScript Programming','Intro JS','intermediate',3,NOW()),
-(4,'Node.js Backend','Backend dev','intermediate',3,NOW()),
-(5,'Full Stack Development','Full stack apps','advanced',3,NOW()),
-(6,'Business Strategy Basics','Business growth','basic',3,NOW()),
-(7,'Graphic Design Fundamentals','Design intro','basic',3,NOW()),
-(8,'Personal Finance Management','Finance basics','basic',3,NOW()),
-(9,'Project Management Essentials','PM skills','intermediate',3,NOW()),
-(10,'Digital Marketing','Marketing','intermediate',3,NOW());
+(1,'HTML Fundamentals','Learn the basics of HTML','basic','Technical','https://www.youtube.com/watch?v=pQN-pnXPaVg',3,NOW()),
+(2,'CSS Styling','Learn CSS','basic','Technical','https://www.youtube.com/watch?v=1Rs2ND1ryYc',3,NOW()),
+(3,'JavaScript Programming','Intro JS','intermediate','Technical','https://www.youtube.com/watch?v=W6NZfCO5SIk',3,NOW()),
+(4,'Node.js Backend','Backend dev','intermediate','Technical','https://www.youtube.com/watch?v=TlB_eWDSMt4',3,NOW()),
+(5,'Full Stack Development','Full stack apps','advanced','Technical','https://www.youtube.com/watch?v=nu_pCVPKzTk',3,NOW()),
+(6,'Business Strategy Basics','Business growth','basic','Business','https://www.youtube.com/watch?v=DpwjsB-tEVI',3,NOW()),
+(7,'Graphic Design Fundamentals','Design intro','basic','Design','https://www.youtube.com/watch?v=YqQx75OPRa0',3,NOW()),
+(8,'Personal Finance Management','Finance basics','basic','Soft Skills','https://www.youtube.com/watch?v=4j2em4RXoqU',3,NOW()),
+(9,'Project Management Essentials','PM skills','intermediate','Business','https://www.youtube.com/watch?v=qKyiaAMgGqI',3,NOW()),
+(10,'Digital Marketing','Marketing','intermediate','Business','https://www.youtube.com/watch?v=bixR-KIJKYM',3,NOW()),
+(11,'Entrepreneurship 101','Start your own business','basic','Business','https://www.youtube.com/watch?v=9_H22b10iT0',3,NOW()),
+(12,'Financial Analysis','Learn financial modeling','advanced','Business','https://www.youtube.com/watch?v=3-M2hI2wE1w',3,NOW()),
+(13,'UI/UX Design Principles','User interface and experience','intermediate','Design','https://www.youtube.com/watch?v=c9Wg6Cb_YlU',3,NOW()),
+(14,'Typography Basics','Learn about fonts and layouts','basic','Design','https://www.youtube.com/watch?v=sByzHoiYRo0',3,NOW()),
+(15,'Advanced Adobe Illustrator','Vector graphics mastery','advanced','Design','https://www.youtube.com/watch?v=Ib8UBwu3y5w',3,NOW()),
+(16,'Web Design Trends','Modern web aesthetics','intermediate','Design','https://www.youtube.com/watch?v=L2vS_050c-M',3,NOW()),
+(17,'Effective Communication','Improve verbal and written skills','basic','Soft Skills','https://www.youtube.com/watch?v=HAnw168huqA',3,NOW()),
+(18,'Leadership and Influence','Lead teams effectively','intermediate','Soft Skills','https://www.youtube.com/watch?v=lsPIJ2M6Mro',3,NOW()),
+(19,'Time Management','Maximize productivity','basic','Soft Skills','https://www.youtube.com/watch?v=iONDebHX9qk',3,NOW()),
+(20,'Conflict Resolution','Handle workplace conflicts','intermediate','Soft Skills','https://www.youtube.com/watch?v=KY5TWVz5ZDU',3,NOW());
 
 -- LESSONS
 INSERT INTO lessons VALUES
-(1,1,'Intro HTML','Basics',1,NOW()),
-(2,1,'HTML Tags','Tags',2,NOW()),
-(3,2,'CSS Basics','CSS',1,NOW()),
-(4,3,'JS Variables','Vars',1,NOW()),
-(5,4,'Node Setup','Setup',1,NOW()),
-(6,6,'Business Strategy','Intro',1,NOW()),
-(7,6,'Market Analysis','Analysis',2,NOW()),
-(8,7,'Design Principles','Design',1,NOW()),
-(9,7,'Tools','Photoshop',2,NOW()),
-(10,8,'Budgeting','Budget',1,NOW()),
-(11,8,'Investing','Invest',2,NOW()),
-(12,9,'Planning','Plan',1,NOW()),
-(13,9,'Risk','Risk mgmt',2,NOW()),
-(14,10,'SEO','SEO',1,NOW()),
-(15,10,'Social Media','SM',2,NOW());
+(1,1,'Intro HTML','Basics','https://www.youtube.com/watch?v=kUMe1FH4CGY',1,NOW()),
+(2,1,'HTML Tags','Tags','https://www.youtube.com/watch?v=qz0aGYrrlhU',2,NOW()),
+(3,2,'CSS Basics','CSS','https://www.youtube.com/watch?v=yfoY53QXEnI',1,NOW()),
+(4,3,'JS Variables','Vars','https://www.youtube.com/watch?v=W6NZfCO5SIk',1,NOW()),
+(5,4,'Node Setup','Setup','https://www.youtube.com/watch?v=TlB_eWDSMt4',1,NOW()),
+(6,6,'Business Strategy','Intro','https://www.youtube.com/watch?v=DpwjsB-tEVI',1,NOW()),
+(7,6,'Market Analysis','Analysis','https://www.youtube.com/watch?v=Q8mD02x2k9I',2,NOW()),
+(8,7,'Design Principles','Design','https://www.youtube.com/watch?v=YqQx75OPRa0',1,NOW()),
+(9,7,'Tools','Photoshop','https://www.youtube.com/watch?v=IyR_uYsRdPs',2,NOW()),
+(10,8,'Budgeting','Budget','https://www.youtube.com/watch?v=4j2em4RXoqU',1,NOW()),
+(11,8,'Investing','Invest','https://www.youtube.com/watch?v=8bJluR4v2gU',2,NOW()),
+(12,9,'Planning','Plan','https://www.youtube.com/watch?v=qKyiaAMgGqI',1,NOW()),
+(13,9,'Risk','Risk mgmt','https://www.youtube.com/watch?v=U2hG19bY8_U',2,NOW()),
+(14,10,'SEO','SEO','https://www.youtube.com/watch?v=bixR-KIJKYM',1,NOW()),
+(15,10,'Social Media','SM','https://www.youtube.com/watch?v=0hXqB8_s7R8',2,NOW()),
+(16,5,'Intro to Full Stack','Frontend and Backend overview','https://www.youtube.com/watch?v=nu_pCVPKzTk',1,NOW()),
+(17,11,'Starting a Business','What it takes to be an entrepreneur','https://www.youtube.com/watch?v=9_H22b10iT0',1,NOW()),
+(18,12,'Reading Financial Statements','Balance sheets and income statements','https://www.youtube.com/watch?v=3-M2hI2wE1w',1,NOW()),
+(19,13,'User Experience Basics','Understanding user needs','https://www.youtube.com/watch?v=c9Wg6Cb_YlU',1,NOW()),
+(20,14,'Font Pairings','How to choose the right fonts','https://www.youtube.com/watch?v=sByzHoiYRo0',1,NOW()),
+(21,15,'Pen Tool Mastery','Drawing vector paths','https://www.youtube.com/watch?v=Ib8UBwu3y5w',1,NOW()),
+(22,16,'Modern Web Trends','What is popular in web design today','https://www.youtube.com/watch?v=L2vS_050c-M',1,NOW()),
+(23,17,'Active Listening','How to truly listen to others','https://www.youtube.com/watch?v=HAnw168huqA',1,NOW()),
+(24,18,'Leading by Example','Inspiring your team','https://www.youtube.com/watch?v=lsPIJ2M6Mro',1,NOW()),
+(25,19,'Pomodoro Technique','Managing time in chunks','https://www.youtube.com/watch?v=iONDebHX9qk',1,NOW()),
+(26,20,'De-escalation','Calming down a tense situation','https://www.youtube.com/watch?v=KY5TWVz5ZDU',1,NOW());
 
 -- ENROLLMENTS
 INSERT INTO enrollments VALUES

@@ -65,7 +65,17 @@ block content
             .input-with-icon(style="position: relative;")
               i.far.fa-user(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
               input.form-input(type="text", name="full_name", placeholder="your name please", style="padding-left: 44px;", required)
-              
+
+          .form-group
+            label.form-label Gender
+            .input-with-icon(style="position: relative;")
+              i.fas.fa-venus-mars(style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted);")
+              select.form-input(name="gender", style="padding-left: 44px; width: 100%; appearance: none; -webkit-appearance: none; background: white;", required)
+                option(value="" disabled selected) Select gender
+                option(value="male") Male
+                option(value="female") Female
+                option(value="other") Other
+              i.fas.fa-chevron-down(style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none;")
           .form-group
             label.form-label Email Address
             .input-with-icon(style="position: relative;")

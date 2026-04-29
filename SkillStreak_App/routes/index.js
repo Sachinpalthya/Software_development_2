@@ -70,10 +70,10 @@ router.get('/register', (req, res) => {
 
 // Registration Processing (Backend)
 router.post('/register', async (req, res) => {
-    const { role, full_name, email, password, password_confirm } = req.body;
+    const { role, full_name, email, password, password_confirm, gender } = req.body;
     
     try {
-        const user = await registerService.registerUser(full_name, email, password, password_confirm, role);
+        const user = await registerService.registerUser(full_name, email, password, password_confirm, role, gender || 'other');
         req.session.user = user;
         res.redirect('/');
     } catch (error) {
@@ -112,7 +112,11 @@ router.get('/logout', (req, res) => {
 // Course course Page
 router.get('/course', async (req, res) => {
     try {
-        const data = await courseService.getcourseData();
+        const filters = {
+            search: req.query.search || '',
+            category: req.query.category || ''
+        };
+        const data = await courseService.getcourseData(filters);
         res.render('course', data);
     } catch (error) {
         console.error(error);

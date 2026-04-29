@@ -7,31 +7,34 @@ block content
       p(style="font-size: 18px; color: var(--text-muted); max-width: 600px;") Master new skills with our industry-leading courses. From technical deep-dives to essential soft skills.
       
     .search-filter-section(style="margin-bottom: 40px;")
-      .search-box-large(style="display: flex; gap: 16px; margin-bottom: 24px;")
-        .input-wrapper(style="flex: 1; position: relative;")
-          i.fas.fa-search(style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px;")
-          input.form-input(type="text", placeholder="Search for courses, skills, or instructors...", style="padding: 16px 20px 16px 50px; font-size: 16px; border-radius: 12px;")
-        button.btn(style="background: var(--text-dark); color: white; border-radius: 12px; padding: 0 24px; display: flex; align-items: center; gap: 8px;")
-          i.fas.fa-sliders-h
-          | Filters
-          
+      form(action="/course", method="GET")
+        input(type="hidden", name="category", value=currentCategory || '')
+        .search-box-large(style="display: flex; gap: 16px; margin-bottom: 24px;")
+          .input-wrapper(style="flex: 1; position: relative;")
+            i.fas.fa-search(style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px;")
+            input.form-input(type="text", name="search", value=currentSearch || '', placeholder="Search for courses, skills, or instructors...", style="padding: 16px 20px 16px 50px; font-size: 16px; border-radius: 12px;")
+          button.btn(type="submit", style="background: var(--text-dark); color: white; border-radius: 12px; padding: 0 24px; display: flex; align-items: center; gap: 8px;")
+            i.fas.fa-sliders-h
+            | Filters
+            
       .category-pills(style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;")
-        button.pill.active(style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; cursor: pointer;") All Courses
-        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
-          | &lt; &gt; Technical
-          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
-        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
-          i.fas.fa-users(style="color: var(--primary);")
-          | Soft Skills
-          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
-        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
-          i.fas.fa-briefcase(style="color: #eab308;")
-          | Business
-          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
-        button.pill(style="background: white; color: var(--text-dark); border: 1px solid var(--gray-200); padding: 10px 20px; border-radius: 20px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px;") 
-          i.fas.fa-palette(style="color: #ef4444;")
-          | Design
-          i.fas.fa-chevron-down(style="font-size: 10px; color: var(--text-muted);")
+        a(href=`/course?search=${currentSearch || ''}`, style="text-decoration: none;")
+          button.pill(class=(!currentCategory ? 'active' : ''), style=`${!currentCategory ? 'background: var(--primary); color: white; border: none;' : 'background: white; color: var(--text-dark); border: 1px solid var(--gray-200);'} padding: 10px 20px; border-radius: 20px; font-weight: ${!currentCategory ? '600' : '500'}; cursor: pointer;`) All Courses
+        a(href=`/course?search=${currentSearch || ''}&category=Technical`, style="text-decoration: none;")
+          button.pill(class=(currentCategory === 'Technical' ? 'active' : ''), style=`${currentCategory === 'Technical' ? 'background: var(--primary); color: white; border: none;' : 'background: white; color: var(--text-dark); border: 1px solid var(--gray-200);'} padding: 10px 20px; border-radius: 20px; font-weight: ${currentCategory === 'Technical' ? '600' : '500'}; cursor: pointer; display: flex; align-items: center; gap: 8px;`) 
+            | &lt; &gt; Technical
+        a(href=`/course?search=${currentSearch || ''}&category=Soft Skills`, style="text-decoration: none;")
+          button.pill(class=(currentCategory === 'Soft Skills' ? 'active' : ''), style=`${currentCategory === 'Soft Skills' ? 'background: var(--primary); color: white; border: none;' : 'background: white; color: var(--text-dark); border: 1px solid var(--gray-200);'} padding: 10px 20px; border-radius: 20px; font-weight: ${currentCategory === 'Soft Skills' ? '600' : '500'}; cursor: pointer; display: flex; align-items: center; gap: 8px;`) 
+            i.fas.fa-users(style=`color: ${currentCategory === 'Soft Skills' ? 'white' : 'var(--primary)'};`)
+            | Soft Skills
+        a(href=`/course?search=${currentSearch || ''}&category=Business`, style="text-decoration: none;")
+          button.pill(class=(currentCategory === 'Business' ? 'active' : ''), style=`${currentCategory === 'Business' ? 'background: var(--primary); color: white; border: none;' : 'background: white; color: var(--text-dark); border: 1px solid var(--gray-200);'} padding: 10px 20px; border-radius: 20px; font-weight: ${currentCategory === 'Business' ? '600' : '500'}; cursor: pointer; display: flex; align-items: center; gap: 8px;`) 
+            i.fas.fa-briefcase(style=`color: ${currentCategory === 'Business' ? 'white' : '#eab308'};`)
+            | Business
+        a(href=`/course?search=${currentSearch || ''}&category=Design`, style="text-decoration: none;")
+          button.pill(class=(currentCategory === 'Design' ? 'active' : ''), style=`${currentCategory === 'Design' ? 'background: var(--primary); color: white; border: none;' : 'background: white; color: var(--text-dark); border: 1px solid var(--gray-200);'} padding: 10px 20px; border-radius: 20px; font-weight: ${currentCategory === 'Design' ? '600' : '500'}; cursor: pointer; display: flex; align-items: center; gap: 8px;`) 
+            i.fas.fa-palette(style=`color: ${currentCategory === 'Design' ? 'white' : '#ef4444'};`)
+            | Design
 
     .recommended-section(style="margin-bottom: 60px;")
       .section-header(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;")
