@@ -8,7 +8,7 @@ class LessonModel {
 
     async getLessonById(lessonId) {
         const [lessons] = await db.execute(`
-            SELECT l.*, c.course_title 
+            SELECT l.*, c.course_title, c.video_url AS course_video_url
             FROM lessons l 
             JOIN courses c ON l.course_id = c.course_id 
             WHERE l.lesson_id = ?

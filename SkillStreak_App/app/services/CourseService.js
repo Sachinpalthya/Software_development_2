@@ -1,13 +1,15 @@
 const courseModel = require('../models/courseModel');
 
 class courseService {
-    async getcourseData() {
-        const courses = await courseModel.getAllCourses();
+    async getcourseData(filters) {
+        const courses = await courseModel.getAllCourses(filters);
         const jobs = await courseModel.getAllJobs();
         return {
             title: 'Explore course | SkillStreak',
             courses,
-            jobs
+            jobs,
+            currentSearch: filters.search,
+            currentCategory: filters.category
         };
     }
 }

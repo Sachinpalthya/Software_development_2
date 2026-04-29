@@ -1,8 +1,21 @@
 const db = require('../../db');
 
 class courseModel {
-    async getAllCourses() {
-        const [courses] = await db.execute('SELECT * FROM courses');
+    async getAllCourses(filters = {}) {
+        let query = 'SELECT * FROM courses WHERE 1=1';
+        let params = [];
+        
+        if (filters.search) {
+            query += ' AND (course_title LIKE ? OR course_description LIKE ?)';
+            params.push(`%${filters.search}%`, `%${filters.search}%`);
+        }
+        
+        if (filters.category) {
+            query += ' AND category = ?';
+            params.push(filters.category);
+        }
+        
+        const [courses] = await db.execute(query, params);
         return courses;
     }
 
