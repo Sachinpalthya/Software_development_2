@@ -10,6 +10,8 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     role ENUM('student','mentor','admin') DEFAULT 'student',
     gender VARCHAR(20) DEFAULT 'other',
+    profile_photo VARCHAR(255) DEFAULT '/images/default-avatar.png',
+    bio TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -145,12 +147,12 @@ CREATE TABLE certificates (
 -- -------------------------
 
 -- USERS
-INSERT INTO users VALUES
-(1, 'karthik', 'karthik@gmail.com', 'hashedpass1', 'student', 'male', NOW()),
-(2, 'Sneha Reddy', 'sneha@gmail.com', 'hashedpass2', 'student', 'female', NOW()),
-(3, 'praveen', 'praveen@gmail.com', 'hashedpass3', 'mentor', 'male', NOW()),
-(4, 'akash', 'akash@gmail.com', 'hashedpass4', 'student', 'male', NOW()),
-(5, 'Admin User', 'admin@gmail.com', 'hashedpass5', 'admin', 'other', NOW());
+INSERT INTO users (user_id, full_name, email, password, role, gender, profile_photo, bio, created_at) VALUES
+(1, 'karthik', 'karthik@gmail.com', 'hashedpass1', 'student', 'male', '/images/default-avatar.png', 'Passionate learner', NOW()),
+(2, 'Sneha Reddy', 'sneha@gmail.com', 'hashedpass2', 'student', 'female', '/images/default-avatar.png', 'Avid reader and developer', NOW()),
+(3, 'praveen', 'praveen@gmail.com', 'hashedpass3', 'mentor', 'male', '/images/default-avatar.png', 'Experienced tech mentor', NOW()),
+(4, 'akash', 'akash@gmail.com', 'hashedpass4', 'student', 'male', '/images/default-avatar.png', 'Aspiring software engineer', NOW()),
+(5, 'Admin User', 'admin@gmail.com', 'hashedpass5', 'admin', 'other', '/images/default-avatar.png', 'System administrator', NOW());
 
 -- COURSES
 INSERT INTO courses VALUES
