@@ -39,7 +39,7 @@ block content
     .recommended-section(style="margin-bottom: 60px;")
       .section-header(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;")
         h2(style="font-size: 24px;") Recommended for You
-        a(href="#", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all →
+        a(href="javascript:void(0)", onclick="alert('More recommendations coming soon!');", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all →
         
       .course-grid(style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;")
         if courses && courses.length > 0
@@ -65,12 +65,12 @@ block content
           p(style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted); font-size: 18px;") No courses available at the moment.
 
     .load-more(style="text-align: center; margin-top: 40px;")
-      button.btn.btn-outline(style="border-radius: 30px; padding: 12px 32px; font-weight: 600;") Load More Courses
+      button.btn.btn-outline(onclick="alert('Loading more courses... (feature coming soon)');", style="border-radius: 30px; padding: 12px 32px; font-weight: 600;") Load More Courses
 
     .jobs-section(style="margin-top: 80px; margin-bottom: 60px;")
       .section-header(style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;")
         h2(style="font-size: 24px;") Recommended Jobs for You
-        a(href="#", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all jobs →
+        a(href="javascript:void(0)", onclick="alert('View all jobs feature is coming soon!');", style="color: var(--primary); font-weight: 600; font-size: 14px;") View all jobs →
         
       .job-grid(style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;")
         if jobs && jobs.length > 0
