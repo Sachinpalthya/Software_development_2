@@ -24,13 +24,17 @@ app.use(express.urlencoded({ extended: true }));
 // Initialize Passport
 app.use(passport.initialize());
 
-// Session Configuration
+// Set the sessions
 const session = require('express-session');
 app.use(session({
-    secret: 'skillstreak_super_secret_key', // In production, use environment variables
+    secret: 'secretkeysdfjsflyoifasd',
     resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 days
+    saveUninitialized: true,
+    rolling: true, // Resets the expiration on every response
+    cookie: { 
+        secure: false, // Set to true if using HTTPS
+        maxAge: 1000 * 60 * 60 * 24 // 24 hours in milliseconds
+    }
 }));
 
 // Access session data in all Pug templates statically
